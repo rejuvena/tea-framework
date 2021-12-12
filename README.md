@@ -27,6 +27,7 @@ stripping away many redundancies.
 * `ItemCollection` system for `Item` enumeration.
 * A variety of helpful extension methods to aid you in various ways.
 * A component-based item glowmask system.
+* `IDisposable` `SpriteBatch` system with smart parameter restoration.
 
 ## Planned Features
 * Markdown-formattable descriptions.
