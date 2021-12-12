@@ -36,4 +36,5 @@ stripping away many redundancies.
 * Abstraction of many TML services to provide safety even after updates. Helps with maintainability, though I would not recommend relying on this.
 * Manipulation of button drawing for your mod's UI panel.
 * Better logging services.
+* Mod.Call overriding, hijack other mods!
 * and more, I guess :)
