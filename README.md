@@ -28,6 +28,7 @@ stripping away many redundancies.
 * A variety of helpful extension methods to aid you in various ways.
 * A component-based item glowmask system.
 * `IDisposable` `SpriteBatch` system with smart parameter restoration.
+* An extensible localization system for custom file types, `.lang` and `.toml` supported by default.
 
 ## Planned Features
 * Markdown-formattable descriptions.

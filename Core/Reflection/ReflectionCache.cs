@@ -39,19 +39,19 @@ namespace TeaFramework.Core.Reflection
             params object[] parameters) =>
             GetCachedMethod(info.PropertyType, methodName)?.Invoke(instance, parameters);
 
-        public static FieldInfo? GetCachedField(Type type, string key) => RetrieveFromCache(ReflectionType.Field,
-            GetUniqueFieldKey(type, key), () => type.GetField(key, ReflectionHelper.UniversalFlags));
+        public static FieldInfo GetCachedField(Type type, string key) => RetrieveFromCache(ReflectionType.Field,
+            GetUniqueFieldKey(type, key), () => type.GetField(key, ReflectionHelper.UniversalFlags))!;
 
-        public static PropertyInfo? GetCachedProperty(Type type, string key) => RetrieveFromCache(
+        public static PropertyInfo GetCachedProperty(Type type, string key) => RetrieveFromCache(
             ReflectionType.Property,
-            GetUniquePropertyKey(type, key), () => type.GetProperty(key, ReflectionHelper.UniversalFlags));
+            GetUniquePropertyKey(type, key), () => type.GetProperty(key, ReflectionHelper.UniversalFlags))!;
 
-        public static MethodInfo? GetCachedMethod(Type type, string key) => RetrieveFromCache(ReflectionType.Method,
-            GetUniqueMethodKey(type, key), () => type.GetMethod(key, ReflectionHelper.UniversalFlags));
+        public static MethodInfo GetCachedMethod(Type type, string key) => RetrieveFromCache(ReflectionType.Method,
+            GetUniqueMethodKey(type, key), () => type.GetMethod(key, ReflectionHelper.UniversalFlags))!;
 
-        public static ConstructorInfo? GetCachedConstructor(Type type, params Type[] identity) => RetrieveFromCache(
+        public static ConstructorInfo GetCachedConstructor(Type type, params Type[] identity) => RetrieveFromCache(
             ReflectionType.Constructor, GetUniqueConstructorKey(type, identity),
-            () => type.GetConstructor(ReflectionHelper.UniversalFlags, null, identity, null));
+            () => type.GetConstructor(ReflectionHelper.UniversalFlags, null, identity, null))!;
 
         public static Type? GetCachedType(Assembly assembly, string key) => RetrieveFromCache(ReflectionType.Type,
             GetUniqueTypeKey(assembly, key), () => assembly.GetType(key));

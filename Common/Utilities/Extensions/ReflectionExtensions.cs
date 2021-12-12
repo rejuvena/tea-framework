@@ -22,16 +22,16 @@ namespace TeaFramework.Common.Utilities.Extensions
             params object[] parameters) =>
             ReflectionCache.InvokeUnderlyingMethod(info, methodName, instance, parameters);
 
-        public static FieldInfo? GetCachedField(this Type type, string key) =>
+        public static FieldInfo GetCachedField(this Type type, string key) =>
             ReflectionCache.GetCachedField(type, key);
 
-        public static PropertyInfo? GetCachedProperty(this Type type, string key) =>
+        public static PropertyInfo GetCachedProperty(this Type type, string key) =>
             ReflectionCache.GetCachedProperty(type, key);
 
-        public static MethodInfo? GetCachedMethod(this Type type, string key) =>
+        public static MethodInfo GetCachedMethod(this Type type, string key) =>
             ReflectionCache.GetCachedMethod(type, key);
 
-        public static ConstructorInfo? GetCachedConstructor(this Type type, params Type[] identity) =>
+        public static ConstructorInfo GetCachedConstructor(this Type type, params Type[] identity) =>
             ReflectionCache.GetCachedConstructor(type, identity);
 
         public static Type? GetCachedType(this Assembly assembly, string key) =>

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Reflection;
 using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
+using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Localization;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -20,7 +22,13 @@ namespace TeaFramework
 	{
 		public List<(MethodInfo, Delegate)> DelegatesToRemove = new();
 		public List<Hook> HooksToRemove = new();
-		
+
+		/// <summary>
+		///		Handles localization loading for your mod.
+		/// </summary>
+		public virtual ILocalizationLoader LocalizationLoader { get; } =
+			new Core.Localization.Implementation.LocalizationLoader();
+
 		public TeaMod()
 		{
 			// Manually set an instance for "internal" use.
@@ -44,6 +52,12 @@ namespace TeaFramework
 				Logger.Info(
 					$"Mod \"{Name}\" is backed by TeaFramework. Go to https://github.com/Rejuvena/TeaFramework for more information."
 				);
+
+			ExecuteInternally(() =>
+			{
+				CreateDetour(typeof(LocalizationLoader).GetCachedMethod("Autoload"),
+					GetType().GetCachedMethod(nameof(AutoloadLocalization)));
+			});
 		}
 
 		public override void Unload()
@@ -58,6 +72,14 @@ namespace TeaFramework
 
 			DelegatesToRemove.Clear();
 			HooksToRemove.Clear();
+		}
+
+		private static void AutoloadLocalization(Action<Mod> orig, Mod mod)
+		{
+			orig(mod);
+			
+			if (mod is TeaMod teaMod)
+				teaMod.LocalizationLoader.Load(mod);
 		}
 
 		/// <summary>

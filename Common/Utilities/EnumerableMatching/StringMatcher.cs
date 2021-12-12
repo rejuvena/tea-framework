@@ -13,6 +13,10 @@ namespace TeaFramework.Common.Utilities.EnumerableMatching
     /// </summary>
     public class StringMatcher : DefaultObjectMatcher<string>, IComparable, IComparable<string>
     {
+        public StringMatcher(params string[] objects) : base(objects)
+        {
+        }
+        
         public virtual int CompareTo(object? obj)
         {
             if (obj is string other)
