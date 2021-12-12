@@ -26,3 +26,14 @@ stripping away many redundancies.
 * Enumerable comparison system framework (compare one item against an enumerable collection to find a match).
 * `ItemCollection` system for `Item` enumeration.
 * A variety of helpful extension methods to aid you in various ways.
+
+## Planned Features
+* Markdown-formattable descriptions.
+* Localizable descriptions and mod names, though this could be considered a little... redundant.
+* Hooks for modifying the drawing of your mod's UI panel in the mod list.
+* A "Service" system.
+* Better AI system with a more component-based focus.
+* Abstraction of many TML services to provide safety even after updates. Helps with maintainability, though I would not recommend relying on this.
+* Manipulation of button drawing for your mod's UI panel.
+* Better logging services.
+* and more, I guess :)

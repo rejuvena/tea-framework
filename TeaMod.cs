@@ -50,7 +50,6 @@ namespace TeaFramework
 		{
 			base.Unload();
 			
-			
 			foreach ((MethodInfo method, Delegate callback) in DelegatesToRemove)
 				HookEndpointManager.Unmodify(method, callback);
 
