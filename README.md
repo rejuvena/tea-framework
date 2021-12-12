@@ -16,8 +16,13 @@ Forge vs Fabric (and I guess Quilt...) for Minecraft).
 
 _Tea_ works off the base of an older library mod developed by
 [myself](https://github.com/Steviegt6) called _TomatoLib_, recycling much
-of the code originally used, thoughwith considerably better quality and
+of the code originally used, though with considerably better quality and
 stripping away many redundancies.
 
 ## Features
-TODO
+* An extra layer of abstraction, inherit from `TeaFramework.TeaMod` instead of `Terraria.ModLoader.Mod`!
+* `FastNoiseLite`, all located in `TeaFramework.Common.Utilities.FastNoiseLite`.
+* Advanced reflection utilities, speed up your programming without having to mess with the nitty-gritty!
+* Enumerable comparison system framework (compare one item against an enumerable collection to find a match).
+* `ItemCollection` system for `Item` enumeration.
+* A variety of helpful extension methods to aid you in various ways.
