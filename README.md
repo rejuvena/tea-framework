@@ -26,6 +26,7 @@ stripping away many redundancies.
 * Enumerable comparison system framework (compare one item against an enumerable collection to find a match).
 * `ItemCollection` system for `Item` enumeration.
 * A variety of helpful extension methods to aid you in various ways.
+* A component-based item glowmask system.
 
 ## Planned Features
 * Markdown-formattable descriptions.
