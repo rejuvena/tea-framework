@@ -29,6 +29,7 @@ stripping away many redundancies.
 * A component-based item glowmask system.
 * `IDisposable` `SpriteBatch` system with smart parameter restoration.
 * An extensible localization system for custom file types, `.lang` and `.toml` supported by default.
+* Object-oriented `Mod.Call` handling.
 
 ## Planned Features
 * Markdown-formattable descriptions.
