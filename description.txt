@@ -1,1 +1,5 @@
-Tea Framework is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Find out more at: https://github.com/Rejuvena/TeaFramework
+
+Tea Framework is an extensive library mod for other mods to use, providing numerous utilities.
+
+If you're a user, you don't need to worry; this mod should be installed and enabled only when using mods that require it.

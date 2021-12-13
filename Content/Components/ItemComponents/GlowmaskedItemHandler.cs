@@ -19,7 +19,7 @@ namespace TeaFramework.Content.Components.ItemComponents
     /// </summary>
     public class GlowmaskedItemHandler : GlobalItem
     {
-        private Dictionary<string, short> GlowmaskCollection = new();
+        private static Dictionary<string, short> GlowmaskCollection = new();
 
         public override void Unload()
         {
@@ -28,6 +28,7 @@ namespace TeaFramework.Content.Components.ItemComponents
             TextureAssets.GlowMask = TextureAssets.GlowMask.Where(x => !x?.Name.StartsWith('$') ?? true).ToArray();
 
             GlowmaskCollection.Clear();
+            GlowmaskCollection = null!;
         }
 
         public short GetGlowmask(IGlowmaskedItem glowmaskedItem)

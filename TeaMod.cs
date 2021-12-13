@@ -10,7 +10,10 @@ using System.Reflection;
 using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
 using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Compatibility.Calls;
+using TeaFramework.Core.Compatibility.Calls.Implementation;
 using TeaFramework.Core.Localization;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -20,14 +23,19 @@ namespace TeaFramework
 	/// </summary>
 	public partial class TeaMod : Mod
 	{
-		public List<(MethodInfo, Delegate)> DelegatesToRemove = new();
-		public List<Hook> HooksToRemove = new();
+		public readonly List<(MethodInfo, Delegate)> DelegatesToRemove = new();
+		public readonly List<Hook> HooksToRemove = new();
 
 		/// <summary>
 		///		Handles localization loading for your mod.
 		/// </summary>
 		public virtual ILocalizationLoader LocalizationLoader { get; } =
 			new Core.Localization.Implementation.LocalizationLoader();
+
+		/// <summary>
+		///		The <see cref="IModCaller"/> instance of your mod that handles <see cref="Mod.Call"/>s.
+		/// </summary>
+		public virtual IModCaller CallHandler { get; protected set; } = new ModCaller();
 
 		public TeaMod()
 		{
@@ -40,13 +48,15 @@ namespace TeaFramework
 		{
 			base.Load();
 
+			MonoModHooks.RequestNativeAccess();
+			
 			if (!ExecuteInternally(() =>
 			{
 				int count = ModLoader.Mods.Count(x => x.GetType().IsSubclassOf(
 					                                      typeof(TeaMod)) &&
 				                                      x.GetType() != typeof(TeaMod)
 				);
-				Logger.Info($"Loaded Rejuvena's TeaFramework v{Version} by Tomat.");
+				Logger.Info($"Loaded TeaFramework v{Version} by Tomat.");
 				Logger.Info($"Mods found directly sub-classing {nameof(TeaMod)}: {count}");
 			}))
 				Logger.Info(
@@ -74,6 +84,17 @@ namespace TeaFramework
 			HooksToRemove.Clear();
 		}
 
+		public override object Call(params object[] args) => CallHandler.HandleCall(this, args);
+
+		/// <summary>
+		///		Returns a localized string.
+		/// </summary>
+		/// <param name="key">The key, without Mods.YourModName</param>
+		/// <param name="args">any passable arguments.</param>
+		/// <returns>A localized string.</returns>
+		public virtual string GetText(string key, params object[] args) =>
+			Language.GetTextValue($"Mods.{Name}.{key}", args);
+		
 		private static void AutoloadLocalization(Action<Mod> orig, Mod mod)
 		{
 			orig(mod);
