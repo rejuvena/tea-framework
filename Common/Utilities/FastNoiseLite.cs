@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2020/2021 Jordan Peck and Contributors
 // MIT License as per FastNoiseLite
+
 #endregion
 
 using System;

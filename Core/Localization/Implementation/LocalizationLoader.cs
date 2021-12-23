@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System.Collections.Generic;
@@ -19,7 +21,7 @@ namespace TeaFramework.Core.Localization.Implementation
     public class LocalizationLoader : ILocalizationLoader
     {
         public virtual Dictionary<StringMatcher, ILocalizationFileParser> ExtensionsToParsers { get; }
-        
+
         public LocalizationLoader(bool populateWithDefaults = true)
         {
             Dictionary<StringMatcher, ILocalizationFileParser> extensionsToParsers = new();
@@ -63,7 +65,7 @@ namespace TeaFramework.Core.Localization.Implementation
                 ILocalizationFileParser parser = ExtensionsToParsers.First(x => x.Key.Equals(extension)).Value;
                 parser.ParseStream(mod, culture, stream, translations);
             }
-            
+
             foreach (ModTranslation translation in translations.Values)
                 Terraria.ModLoader.LocalizationLoader.AddTranslation(translation);
         }

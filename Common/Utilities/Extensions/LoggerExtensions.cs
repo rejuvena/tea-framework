@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using log4net;
@@ -27,7 +29,7 @@ namespace TeaFramework.Common.Utilities.Extensions
 
             if (!string.IsNullOrEmpty(value))
                 logText += $" {value}";
-            
+
             log.Warn(logText);
         }
     }

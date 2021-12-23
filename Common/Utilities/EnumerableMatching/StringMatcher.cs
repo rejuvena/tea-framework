@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System;
@@ -16,7 +18,7 @@ namespace TeaFramework.Common.Utilities.EnumerableMatching
         public StringMatcher(params string[] objects) : base(objects)
         {
         }
-        
+
         public virtual int CompareTo(object? obj)
         {
             if (obj is string other)

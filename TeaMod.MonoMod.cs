@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System;
@@ -27,7 +29,7 @@ namespace TeaFramework
                 modifyingType.GetCachedMethod(methodName)?.Invoke(null, new object[] {il})
             );
             HookEndpointManager.Modify(method, callback);
-            DelegatesToRemove.Add((method, callback));
+            EditsToRemove.Add((method, callback));
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace TeaFramework
             // TODO: Check if this message is still necessary. Unaware of if it is.
             Logger.Debug($"[TeaFramework] Performing detour on behalf of {Name}");
             hook.Apply();
-            HooksToRemove.Add(hook);
+            DetoursToRemove.Add(hook);
         }
     }
 }

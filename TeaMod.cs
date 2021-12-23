@@ -23,8 +23,8 @@ namespace TeaFramework
 	/// </summary>
 	public partial class TeaMod : Mod
 	{
-		public readonly List<(MethodInfo, Delegate)> DelegatesToRemove = new();
-		public readonly List<Hook> HooksToRemove = new();
+		public readonly List<(MethodInfo, Delegate)> EditsToRemove = new();
+		public readonly List<Hook> DetoursToRemove = new();
 
 		/// <summary>
 		///		Handles localization loading for your mod.
@@ -74,14 +74,14 @@ namespace TeaFramework
 		{
 			base.Unload();
 			
-			foreach ((MethodInfo method, Delegate callback) in DelegatesToRemove)
+			foreach ((MethodInfo method, Delegate callback) in EditsToRemove)
 				HookEndpointManager.Unmodify(method, callback);
 
-			foreach (Hook hook in HooksToRemove.Where(hook => hook.IsApplied))
+			foreach (Hook hook in DetoursToRemove.Where(hook => hook.IsApplied))
 				hook.Undo();
 
-			DelegatesToRemove.Clear();
-			HooksToRemove.Clear();
+			EditsToRemove.Clear();
+			DetoursToRemove.Clear();
 		}
 
 		public override object Call(params object[] args) => CallHandler.HandleCall(this, args);

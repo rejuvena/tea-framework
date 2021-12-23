@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System.Collections.Generic;
@@ -11,6 +13,8 @@ using TeaFramework.Common.Utilities.Extensions;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
+
+// ReSharper disable SuspiciousTypeConversion.Global
 
 namespace TeaFramework.Content.Components.ItemComponents
 {
@@ -35,20 +39,20 @@ namespace TeaFramework.Content.Components.ItemComponents
         {
             if (GlowmaskCollection.ContainsKey(glowmaskedItem.GlowmaskPath))
                 return GlowmaskCollection[glowmaskedItem.GlowmaskPath];
-            
+
             short count = (short) TextureAssets.GlowMask.Length;
             Asset<Texture2D> texture = ModContent.Request<Texture2D>(
                 glowmaskedItem.GlowmaskPath,
                 AssetRequestMode.ImmediateLoad
             );
-            
+
             texture.Value.Name = '$' + texture.Value.Name;
 
             TextureAssets.GlowMask.Add(texture);
             GlowmaskCollection.Add(glowmaskedItem.GlowmaskPath, count);
             return count;
         }
-        
+
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);

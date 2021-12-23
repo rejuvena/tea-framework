@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System.Collections;
@@ -16,7 +18,7 @@ namespace TeaFramework.Common.Utilities.EnumerableMatching
     public abstract class DefaultObjectMatcher<T> : IObjectMatcher<T>
     {
         public virtual IEnumerable<T>? Objects { get; }
-        
+
         protected DefaultObjectMatcher(params T[] objects)
         {
             Objects = objects;

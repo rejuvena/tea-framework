@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System;
@@ -43,7 +45,7 @@ namespace TeaFramework.Common.Utilities.Extensions
         public static void ReplaceInfoInstance(this FieldInfo info, object? instance = null,
             object? replacementInstance = null) =>
             ReflectionCache.ReplaceInfoInstance(info, instance, replacementInstance);
-        
+
         public static void ReplaceInfoInstance(this PropertyInfo info, object? instance = null,
             object? replacementInstance = null) =>
             ReflectionCache.ReplaceInfoInstance(info, instance, replacementInstance);

@@ -1,6 +1,8 @@
 ﻿#region License
+
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
+
 #endregion
 
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace TeaFramework.Common.Utilities.Terraria.ItemCollections
     public class ItemCollectionProfile : IItemCollectionProfile
     {
         public virtual List<(int itemId, int itemCount)> ItemData { get; }
-        
+
         public virtual int ExtraValue { get; set; }
 
         #region Constructors
@@ -46,7 +48,7 @@ namespace TeaFramework.Common.Utilities.Terraria.ItemCollections
         }
 
         #endregion
-        
+
         public virtual IItemCollectionProfile WithExtraValue(int extraValue)
         {
             ExtraValue = extraValue;
