@@ -18,6 +18,11 @@ namespace TeaFramework
         private static TeaMod? TeaInstance;
 
         /// <summary>
+        ///     Assembly-constant value used for logging.
+        /// </summary>
+        public const string TeaVersion = "0.1.0";
+        
+        /// <summary>
         ///     Retrieves the actual <see cref="TeaMod"/> instance.
         /// </summary>
         /// <returns>The loaded <see cref="TeaMod"/> instance, without a content look-up.</returns>

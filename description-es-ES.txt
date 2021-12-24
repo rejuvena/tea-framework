@@ -1,0 +1,3 @@
+﻿Muchas gracias por descargar [i:5009] [u:TeaFramework]! Este es un mod de librería con el objetivo de hacer el desarrollo de mods más fácil, y en general, más conveniente.
+
+Lo que estás viendo aquí es una descripción localizada, una de las muchas características de [i:5009] [u:TeaFramework]. Esto permite a los desarrolladores de mods proporcionar descripciones localizadas para diferentes idiomas. El idioma actual es español.

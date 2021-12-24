@@ -60,7 +60,7 @@ namespace TeaFramework
 				Logger.Info($"Mods found directly sub-classing {nameof(TeaMod)}: {count}");
 			}))
 				Logger.Info(
-					$"Mod \"{Name}\" is backed by TeaFramework. Go to https://github.com/Rejuvena/TeaFramework for more information."
+					$"Mod \"{Name}\" is backed by TeaFramework v{TeaVersion}. Go to https://github.com/Rejuvena/TeaFramework for more information."
 				);
 
 			ExecuteInternally(() =>
