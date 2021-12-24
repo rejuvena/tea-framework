@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TeaFramework.Common.Utilities;
+#pragma warning disable 8603
 
 namespace TeaFramework.Core.Reflection
 {
@@ -55,10 +56,10 @@ namespace TeaFramework.Core.Reflection
             ReflectionType.Constructor, GetUniqueConstructorKey(type, identity),
             () => type.GetConstructor(ReflectionHelper.UniversalFlags, null, identity, null))!;
 
-        public static Type? GetCachedType(Assembly assembly, string key) => RetrieveFromCache(ReflectionType.Type,
+        public static Type GetCachedType(Assembly assembly, string key) => RetrieveFromCache(ReflectionType.Type,
             GetUniqueTypeKey(assembly, key), () => assembly.GetType(key));
 
-        public static Type? GetCachedNestedType(Type type, string key) => RetrieveFromCache(ReflectionType.Type,
+        public static Type GetCachedNestedType(Type type, string key) => RetrieveFromCache(ReflectionType.Type,
             GetUniqueNestedTypeKey(type, key), () => type.GetNestedType(key, ReflectionHelper.UniversalFlags));
 
         public static string GetUniqueFieldKey(Type type, string key) => $"{type.FullName}->{key}";

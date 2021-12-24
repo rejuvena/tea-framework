@@ -67,6 +67,8 @@ namespace TeaFramework
 			{
 				CreateDetour(typeof(LocalizationLoader).GetCachedMethod("Autoload"),
 					GetType().GetCachedMethod(nameof(AutoloadLocalization)));
+				
+				ApplyEdits();
 			});
 		}
 

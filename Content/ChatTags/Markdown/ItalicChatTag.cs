@@ -60,8 +60,8 @@ namespace TeaFramework.Content.ChatTags.Markdown
         public override IEnumerable<string> Aliases => new[]
         {
             "italics",
-            "italic",
-            "i"
+            "italic"
+            // no "i" as it interferes with the item tag
         };
 
         public override TextSnippet Parse(string text, Color baseColor = new(), string? options = null) =>

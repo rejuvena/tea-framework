@@ -8,6 +8,7 @@
 using System;
 using System.Reflection;
 using TeaFramework.Core.Reflection;
+#pragma warning disable 8603
 
 namespace TeaFramework.Common.Utilities.Extensions
 {
@@ -36,10 +37,10 @@ namespace TeaFramework.Common.Utilities.Extensions
         public static ConstructorInfo GetCachedConstructor(this Type type, params Type[] identity) =>
             ReflectionCache.GetCachedConstructor(type, identity);
 
-        public static Type? GetCachedType(this Assembly assembly, string key) =>
+        public static Type GetCachedType(this Assembly assembly, string key) =>
             ReflectionCache.GetCachedType(assembly, key);
 
-        public static Type? GetCachedNestedType(this Type type, string key) =>
+        public static Type GetCachedNestedType(this Type type, string key) =>
             ReflectionCache.GetCachedNestedType(type, key);
 
         public static void ReplaceInfoInstance(this FieldInfo info, object? instance = null,
@@ -50,10 +51,10 @@ namespace TeaFramework.Common.Utilities.Extensions
             object? replacementInstance = null) =>
             ReflectionCache.ReplaceInfoInstance(info, instance, replacementInstance);
 
-        public static TReturn? GetValue<TReturn>(this FieldInfo info, object? fieldInstance = null) =>
+        public static TReturn GetValue<TReturn>(this FieldInfo info, object? fieldInstance = null) =>
             ReflectionCache.GetValue<TReturn>(info, fieldInstance);
 
-        public static TReturn? GetValue<TReturn>(this PropertyInfo info, object? fieldInstance = null) =>
+        public static TReturn GetValue<TReturn>(this PropertyInfo info, object? fieldInstance = null) =>
             ReflectionCache.GetValue<TReturn>(info, fieldInstance);
 
         public static void SetValue(this FieldInfo info, object? instance = null, object? fieldValue = null) =>
