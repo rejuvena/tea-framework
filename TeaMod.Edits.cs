@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json;
 using TeaFramework.Common.Utilities.Extensions;
 using Terraria;
 using Terraria.Localization;
@@ -51,6 +53,18 @@ namespace TeaFramework
 
                 if (!string.IsNullOrEmpty(fileName)) 
                     description = Encoding.UTF8.GetString(file.GetBytes(fileToUse)).Remove(0, 1); // encoding adds a * to the start
+
+                if (file.HasFile("tea.json"))
+                {
+                    TeaMetadata metadata = JsonConvert.DeserializeObject<TeaMetadata>(
+                        Encoding.UTF8.GetString(file.GetBytes("tea.json")).Remove(0, 1)
+                    );
+
+                    if (metadata.DisplayNames.ContainsKey(discriminator))
+                        displayName = metadata.DisplayNames[discriminator];
+                    else if (discriminator != "en-US" && metadata.DisplayNames.ContainsKey("en-US"))
+                        displayName = metadata.DisplayNames["en-US"];
+                }
             }
             
             orig(self, modName, displayName, gotoMenu, localMod, description, url, loadFromWeb, publishedFileId);
