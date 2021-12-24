@@ -6,6 +6,7 @@
 #endregion
 
 using System;
+using Terraria.ModLoader;
 
 namespace TeaFramework
 {
@@ -22,5 +23,17 @@ namespace TeaFramework
         /// <returns>The loaded <see cref="TeaMod"/> instance, without a content look-up.</returns>
         /// <exception cref="InvalidOperationException">Thrown if this method is somehow invoked prior to <see cref="TeaMod"/> being initialized.</exception>
         public static TeaMod GetTea() => TeaInstance ?? throw new InvalidOperationException("Tea not yet loaded.");
+
+        internal static void LogError(string system, string message)
+        {
+            // Ensure we always have an instance of TeaMod instead of relying on TeaInstance.
+            TeaMod mod = ModContent.GetInstance<TeaMod>();
+
+            mod.Logger.Error(@"  _     ___                         _   ");
+            mod.Logger.Error(@" | |   | __| _ _  _ _  ___  _ _    | |  ");
+            mod.Logger.Error(@" |_|   | _| | '_|| '_|/ _ \| '_|   |_|  ");
+            mod.Logger.Error(@" (_)   |___||_|  |_|  \___/|_|     (_)  ");
+            mod.Logger.Error($"[{system}] {message}");
+        }
     }
 }
