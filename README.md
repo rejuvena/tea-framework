@@ -1,4 +1,4 @@
-# Tea Framework
+# Tea
 _Tea_ is a modding framework that functions as a mod, and is designed to
 be used as a dependency by other mods for _tModLoader_.
 
