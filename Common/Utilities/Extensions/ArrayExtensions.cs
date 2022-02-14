@@ -20,7 +20,7 @@ namespace TeaFramework.Common.Utilities.Extensions
         /// <param name="item">The element to be added.</param>
         /// <returns>The array with the added element.</returns>
         /// <remarks>
-        ///     Adding to array should generally be avoided. Use a list or something instead.
+        ///     Adding to arrays should generally be avoided. Use a list or something instead.
         /// </remarks>
         public static T[] Add<T>(this T[] array, T item)
         {

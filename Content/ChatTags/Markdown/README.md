@@ -4,3 +4,6 @@ The `Markdown` folder contains numerous in-game chat tags that replicate Markdow
 Markdown is not parsed into chat tags, these chat tags just aim to replicate the visuals created by Markdown.
 
 A full list of implemented tags include:
+* Italics
+* Underlining
+* Bold (Bad, do not use lol)

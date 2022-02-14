@@ -11,11 +11,11 @@ using System.Linq;
 namespace TeaFramework.Common.Utilities.EnumerableMatching
 {
     /// <summary>
-    ///     <see cref="IComparable"/> <see cref="string"/> implementation of <see cref="DefaultObjectMatcher{T}"/>.
+    ///     <see cref="IComparable"/> <see cref="string"/> implementation of <see cref="ObjectMacher{T}"/>.
     /// </summary>
-    public class StringMatcher : DefaultObjectMatcher<string>, IComparable, IComparable<string>
+    public class StringMacher : ObjectMacher<string>, IComparable, IComparable<string>
     {
-        public StringMatcher(params string[] objects) : base(objects)
+        public StringMacher(params string[] objects) : base(objects)
         {
         }
 

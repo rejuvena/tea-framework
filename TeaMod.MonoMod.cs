@@ -26,7 +26,7 @@ namespace TeaFramework
         public virtual void CreateEdit(MethodInfo method, Type modifyingType, string methodName)
         {
             Delegate callback = new ILContext.Manipulator(il =>
-                modifyingType.GetCachedMethod(methodName)?.Invoke(null, new object[] {il})
+                modifyingType.GetCachedMethod(methodName).Invoke(null, new object[] {il})
             );
             HookEndpointManager.Modify(method, callback);
             EditsToRemove.Add((method, callback));
@@ -42,8 +42,6 @@ namespace TeaFramework
         public virtual void CreateDetour(MethodInfo modifiedMethod, MethodInfo modifyingMethod)
         {
             Hook hook = new(modifiedMethod, modifyingMethod);
-            // TODO: Check if this message is still necessary. Unaware of if it is.
-            Logger.Debug($"[TeaFramework] Performing detour on behalf of {Name}");
             hook.Apply();
             DetoursToRemove.Add(hook);
         }

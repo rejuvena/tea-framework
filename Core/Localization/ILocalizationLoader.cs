@@ -23,6 +23,6 @@ namespace TeaFramework.Core.Localization
         /// <summary>
         ///     A dictionary of all extensions that should get parsed by an instance of <see cref="ILocalizationFileParser"/>.
         /// </summary>
-        Dictionary<StringMatcher, ILocalizationFileParser> ExtensionsToParsers { get; }
+        Dictionary<StringMacher, ILocalizationFileParser> ExtensionsToParsers { get; }
     }
 }

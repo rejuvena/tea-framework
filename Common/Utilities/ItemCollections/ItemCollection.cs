@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TeaFramework.Common.Utilities.Terraria.ItemCollections
+namespace TeaFramework.Common.Utilities.ItemCollections
 {
     /// <summary>
     ///     <see cref="IList{T}"/> implementation around <see cref="IItemCollectionProfile"/>s.

@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace TeaFramework.Common.Utilities.Terraria.ItemCollections
+namespace TeaFramework.Common.Utilities.ItemCollections
 {
     /// <summary>
     ///     Buildable profile of core item collection data, supports appending a bonus value as well as dynamically modifying the underlying item collection.

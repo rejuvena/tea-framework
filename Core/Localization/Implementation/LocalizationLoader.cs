@@ -20,17 +20,17 @@ namespace TeaFramework.Core.Localization.Implementation
     /// </summary>
     public class LocalizationLoader : ILocalizationLoader
     {
-        public virtual Dictionary<StringMatcher, ILocalizationFileParser> ExtensionsToParsers { get; }
+        public virtual Dictionary<StringMacher, ILocalizationFileParser> ExtensionsToParsers { get; }
 
         public LocalizationLoader(bool populateWithDefaults = true)
         {
-            Dictionary<StringMatcher, ILocalizationFileParser> extensionsToParsers = new();
+            Dictionary<StringMacher, ILocalizationFileParser> extensionsToParsers = new();
 
-            if (!populateWithDefaults)
-                return;
-
-            extensionsToParsers.Add(new StringMatcher("lang"), new LangFileParser());
-            extensionsToParsers.Add(new StringMatcher("toml"), new TomlFileParser());
+            if (populateWithDefaults)
+            {
+                extensionsToParsers.Add(new StringMacher("lang"), new LangFileParser());
+                extensionsToParsers.Add(new StringMacher("toml"), new TomlFileParser());
+            }
 
             ExtensionsToParsers = extensionsToParsers;
         }

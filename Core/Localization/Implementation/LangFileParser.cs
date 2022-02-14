@@ -16,8 +16,19 @@ namespace TeaFramework.Core.Localization.Implementation
     /// </summary>
     public class LangFileParser : ILocalizationFileParser
     {
-        public IDictionary<string, ModTranslation> ParseText(Mod mod, string culture, string text,
-            Dictionary<string, ModTranslation> translations)
+        IDictionary<string, ModTranslation> ILocalizationFileParser.ParseText(
+            Mod mod,
+            string culture,
+            string text,
+            Dictionary<string, ModTranslation> translations
+        ) => ParseText(mod, culture, text, translations);
+
+        public static IDictionary<string, ModTranslation> ParseText(
+            Mod mod,
+            string culture,
+            string text,
+            Dictionary<string, ModTranslation> translations
+        )
         {
             using StringReader reader = new(text);
 

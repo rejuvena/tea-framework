@@ -32,7 +32,7 @@ namespace TeaFramework.Core.Compatibility.Calls.Implementation
             return CallHandlers[call.ToLower(CultureInfo.InvariantCulture)].Action(mod, arguments.ToArray());
         }
 
-        public void AddCaller(IModCallHandler handler) =>
+        public virtual void AddCaller(IModCallHandler handler) =>
             CallHandlers[handler.Accessor.ToLower(CultureInfo.InvariantCulture)] = handler;
 
         public static void AssetArguments(IEnumerable<object> objects, params Type[] types)

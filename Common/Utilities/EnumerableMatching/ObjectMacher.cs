@@ -15,11 +15,11 @@ namespace TeaFramework.Common.Utilities.EnumerableMatching
     ///     Default <see cref="IObjectMatcher{T}"/> implementation.
     /// </summary>
     /// <typeparam name="T">The object type to match.</typeparam>
-    public abstract class DefaultObjectMatcher<T> : IObjectMatcher<T>
+    public abstract class ObjectMacher<T> : IObjectMatcher<T>
     {
         public virtual IEnumerable<T>? Objects { get; }
 
-        protected DefaultObjectMatcher(params T[] objects)
+        protected ObjectMacher(params T[] objects)
         {
             Objects = objects;
         }
