@@ -35,31 +35,31 @@ namespace TeaFramework.Core.Reflection
         private static void GenerateEmptyCache(ref Dictionary<ReflectionType, Dictionary<string, object>> dictionary,
             ReflectionType reflectionType) => dictionary.Add(reflectionType, new Dictionary<string, object>());
 
-        public static object? InvokeUnderlyingMethod(FieldInfo info, string methodName, object instance,
-            params object[] parameters) => GetCachedMethod(info.FieldType, methodName)?.Invoke(instance, parameters);
+        public static object? InvokeUnderlyingMethod(this FieldInfo info, string methodName, object instance,
+            params object[] parameters) => GetCachedMethod(info.FieldType, methodName).Invoke(instance, parameters);
 
-        public static object? InvokeUnderlyingMethod(PropertyInfo info, string methodName, object instance,
+        public static object? InvokeUnderlyingMethod(this PropertyInfo info, string methodName, object instance,
             params object[] parameters) =>
-            GetCachedMethod(info.PropertyType, methodName)?.Invoke(instance, parameters);
+            GetCachedMethod(info.PropertyType, methodName).Invoke(instance, parameters);
 
-        public static FieldInfo GetCachedField(Type type, string key) => RetrieveFromCache(ReflectionType.Field,
+        public static FieldInfo GetCachedField(this Type type, string key) => RetrieveFromCache(ReflectionType.Field,
             GetUniqueFieldKey(type, key), () => type.GetField(key, ReflectionHelper.UniversalFlags))!;
 
-        public static PropertyInfo GetCachedProperty(Type type, string key) => RetrieveFromCache(
+        public static PropertyInfo GetCachedProperty(this Type type, string key) => RetrieveFromCache(
             ReflectionType.Property,
             GetUniquePropertyKey(type, key), () => type.GetProperty(key, ReflectionHelper.UniversalFlags))!;
 
-        public static MethodInfo GetCachedMethod(Type type, string key) => RetrieveFromCache(ReflectionType.Method,
+        public static MethodInfo GetCachedMethod(this Type type, string key) => RetrieveFromCache(ReflectionType.Method,
             GetUniqueMethodKey(type, key), () => type.GetMethod(key, ReflectionHelper.UniversalFlags))!;
 
-        public static ConstructorInfo GetCachedConstructor(Type type, params Type[] identity) => RetrieveFromCache(
+        public static ConstructorInfo GetCachedConstructor(this Type type, params Type[] identity) => RetrieveFromCache(
             ReflectionType.Constructor, GetUniqueConstructorKey(type, identity),
             () => type.GetConstructor(ReflectionHelper.UniversalFlags, null, identity, null))!;
 
-        public static Type GetCachedType(Assembly assembly, string key) => RetrieveFromCache(ReflectionType.Type,
+        public static Type GetCachedType(this Assembly assembly, string key) => RetrieveFromCache(ReflectionType.Type,
             GetUniqueTypeKey(assembly, key), () => assembly.GetType(key));
 
-        public static Type GetCachedNestedType(Type type, string key) => RetrieveFromCache(ReflectionType.Type,
+        public static Type GetCachedNestedType(this Type type, string key) => RetrieveFromCache(ReflectionType.Type,
             GetUniqueNestedTypeKey(type, key), () => type.GetNestedType(key, ReflectionHelper.UniversalFlags));
 
         public static string GetUniqueFieldKey(Type type, string key) => $"{type.FullName}->{key}";
@@ -87,44 +87,36 @@ namespace TeaFramework.Core.Reflection
             return (TReturn) (Cache[refType][key] = fallback() ?? throw new InvalidOperationException());
         }
 
-        public static void ReplaceInfoInstance(FieldInfo info, object? instance = null,
+        public static void ReplaceInfoInstance(this FieldInfo info, object? instance = null,
             object? replacementInstance = null) =>
             info.SetValue(instance, replacementInstance ?? Activator.CreateInstance(info.FieldType));
 
-        public static void ReplaceInfoInstance(PropertyInfo info, object? instance = null,
+        public static void ReplaceInfoInstance(this PropertyInfo info, object? instance = null,
             object? replacementInstance = null) =>
             info.SetValue(instance, replacementInstance ?? Activator.CreateInstance(info.PropertyType));
 
-        public static TReturn? GetValue<TReturn>(FieldInfo info, object? instance = null) =>
-            CastSafely<TReturn>(info.GetValue(instance));
+        public static TReturn GetValue<TReturn>(this FieldInfo info, object? instance = null) =>
+            (TReturn) info.GetValue(instance)!;
 
-        public static TReturn? GetValue<TReturn>(PropertyInfo info, object? instance = null) =>
-            CastSafely<TReturn>(info.GetValue(instance));
+        public static TReturn GetValue<TReturn>(this PropertyInfo info, object? instance = null) =>
+            (TReturn) info.GetValue(instance)!;
 
-        public static void SetValue(FieldInfo info, object? fieldInstance = null, object? fieldValue = null) =>
+        public static void SetValue(this FieldInfo info, object? fieldInstance = null, object? fieldValue = null) =>
             info.SetValue(fieldInstance, fieldValue);
 
-        public static void SetValue(PropertyInfo info, object? fieldInstance = null, object? fieldValue = null) =>
+        public static void SetValue(this PropertyInfo info, object? fieldInstance = null, object? fieldValue = null) =>
             info.SetValue(fieldInstance, fieldValue);
 
-        public static TReturn? GetFieldValue<TType, TReturn>(TType instance, string field) =>
-            CastSafely<TReturn>(GetCachedField(typeof(TType), field)?.GetValue(instance));
+        public static TReturn GetFieldValue<TType, TReturn>(this TType instance, string field) =>
+            (TReturn) GetCachedField(typeof(TType), field).GetValue(instance)!;
 
-        public static TReturn? GetPropertyValue<TType, TReturn>(TType instance, string property) =>
-            CastSafely<TReturn>(GetCachedProperty(typeof(TType), property)?.GetValue(instance));
+        public static TReturn GetPropertyValue<TType, TReturn>(this TType instance, string property) =>
+            (TReturn) GetCachedProperty(typeof(TType), property).GetValue(instance)!;
 
-        public static void SetFieldValue<TType>(TType instance, string field, object? fieldValue = null) =>
-            GetCachedField(typeof(TType), field)?.SetValue(instance, fieldValue);
+        public static void SetFieldValue<TType>(this TType instance, string field, object? fieldValue = null) =>
+            GetCachedField(typeof(TType), field).SetValue(instance, fieldValue);
 
-        public static void SetPropertyValue<TType>(TType instance, string property, object? fieldValue = null) =>
-            GetCachedProperty(typeof(TType), property)?.SetValue(instance, fieldValue);
-
-        private static T? CastSafely<T>(object? value)
-        {
-            if (value is null)
-                return default;
-
-            return (T) value;
-        }
+        public static void SetPropertyValue<TType>(this TType instance, string property, object? fieldValue = null) =>
+            GetCachedProperty(typeof(TType), property).SetValue(instance, fieldValue);
     }
 }

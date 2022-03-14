@@ -6,7 +6,6 @@
 #endregion
 
 using System.Collections.Generic;
-using TeaFramework.Common.Utilities.EnumerableMatching;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Core.Localization
@@ -23,6 +22,6 @@ namespace TeaFramework.Core.Localization
         /// <summary>
         ///     A dictionary of all extensions that should get parsed by an instance of <see cref="ILocalizationFileParser"/>.
         /// </summary>
-        Dictionary<StringMacher, ILocalizationFileParser> ExtensionsToParsers { get; }
+        Dictionary<string, ILocalizationFileParser> ExtensionsToParsers { get; }
     }
 }

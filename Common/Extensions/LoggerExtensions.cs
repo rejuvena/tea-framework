@@ -8,7 +8,7 @@
 using log4net;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Common.Utilities.Extensions
+namespace TeaFramework.Common.Extensions
 {
     /// <summary>
     ///     Numerous methods to extend <see cref="ILog"/> functionality.

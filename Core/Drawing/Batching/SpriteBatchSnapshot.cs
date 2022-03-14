@@ -7,7 +7,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Reflection;
 
 namespace TeaFramework.Core.Drawing.Batching
 {

@@ -2,7 +2,7 @@
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 
-namespace TeaFramework.Common.Utilities.Extensions
+namespace TeaFramework.Common.Extensions
 {
     /// <summary>
     ///     Numerous methods to extend Mono.Cecil and MonoMod functionality.

@@ -10,7 +10,7 @@ using System.Reflection;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
-using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Reflection;
 
 namespace TeaFramework
 {

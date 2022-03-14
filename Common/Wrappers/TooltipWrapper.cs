@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Common.Utilities.Wrappers
+namespace TeaFramework.Common.Wrappers
 {
     /// <summary>
     ///     Wraps around a List of TooltipLines for easy management.

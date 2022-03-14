@@ -10,7 +10,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Reflection;
 
 namespace TeaFramework.Core.Drawing.Batching
 {

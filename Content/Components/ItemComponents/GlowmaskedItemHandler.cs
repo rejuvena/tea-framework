@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Common.Extensions;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;

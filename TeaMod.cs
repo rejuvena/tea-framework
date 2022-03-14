@@ -9,10 +9,10 @@ using System.Linq;
 using System.Reflection;
 using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
-using TeaFramework.Common.Utilities.Extensions;
 using TeaFramework.Core.Compatibility.Calls;
 using TeaFramework.Core.Compatibility.Calls.Implementation;
 using TeaFramework.Core.Localization;
+using TeaFramework.Core.Reflection;
 using Terraria.Localization;
 using Terraria.ModLoader;
 

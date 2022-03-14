@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
-using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Reflection;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader.Core;

@@ -5,7 +5,7 @@
 
 using System;
 
-namespace TeaFramework.Common.Utilities.Extensions
+namespace TeaFramework.Common.Extensions
 {
     /// <summary>
     ///     Numerous methods to extend array functionality.

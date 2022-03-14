@@ -8,7 +8,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TeaFramework.Common.Utilities.Extensions
+namespace TeaFramework.Common.Extensions
 {
     /// <summary>
     ///     Numerous methods to extend <see cref="Texture2D"/> functionality.

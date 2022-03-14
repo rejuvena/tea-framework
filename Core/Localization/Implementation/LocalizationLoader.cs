@@ -8,8 +8,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TeaFramework.Common.Utilities.EnumerableMatching;
-using TeaFramework.Common.Utilities.Extensions;
+using TeaFramework.Core.Reflection;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 
@@ -20,16 +19,16 @@ namespace TeaFramework.Core.Localization.Implementation
     /// </summary>
     public class LocalizationLoader : ILocalizationLoader
     {
-        public virtual Dictionary<StringMacher, ILocalizationFileParser> ExtensionsToParsers { get; }
+        public virtual Dictionary<string, ILocalizationFileParser> ExtensionsToParsers { get; }
 
         public LocalizationLoader(bool populateWithDefaults = true)
         {
-            Dictionary<StringMacher, ILocalizationFileParser> extensionsToParsers = new();
+            Dictionary<string, ILocalizationFileParser> extensionsToParsers = new();
 
             if (populateWithDefaults)
             {
-                extensionsToParsers.Add(new StringMacher("lang"), new LangFileParser());
-                extensionsToParsers.Add(new StringMacher("toml"), new TomlFileParser());
+                extensionsToParsers.Add("lang", new LangFileParser());
+                extensionsToParsers.Add("toml", new TomlFileParser());
             }
 
             ExtensionsToParsers = extensionsToParsers;
@@ -37,20 +36,15 @@ namespace TeaFramework.Core.Localization.Implementation
 
         public virtual void Load(Mod mod)
         {
-            IEnumerable<KeyValuePair<string, TmodFile.FileEntry>>? files = mod.GetPropertyValue<Mod, TmodFile>("File")?
+            IEnumerable<KeyValuePair<string, TmodFile.FileEntry>> files = mod.GetPropertyValue<Mod, TmodFile>("File")
                 .GetFieldValue<TmodFile, IDictionary<string, TmodFile.FileEntry>>("files");
 
-            if (files is null)
-            {
-                mod.Logger.Error("[Tea Framework] Could not find files to load localization for!");
-                return;
-            }
 
             files = files.Where(x =>
             {
                 string[] splitText = SplitFilePath(x.Key);
 
-                return splitText.Length == 2 && ExtensionsToParsers.Keys.Any(x => x.Equals(splitText[1]));
+                return splitText.Length == 2 && ExtensionsToParsers.Keys.Any(y => y.Equals(splitText[1]));
             });
 
             Dictionary<string, ModTranslation> translations = new();
@@ -80,11 +74,15 @@ namespace TeaFramework.Core.Localization.Implementation
         {
             key = $"Mods.{mod.Name}.${key}".Replace(' ', '_');
 
-            return typeof(LocalizationLoader).GetCachedField("translations")
-                .GetValue<Dictionary<string, ModTranslation>>()!.TryGetValue(key, out ModTranslation? modTranslation)
+            return typeof(LocalizationLoader)
+                .GetCachedField("translations")
+                .GetValue<Dictionary<string, ModTranslation>>()
+                .TryGetValue(key, out ModTranslation? modTranslation)
                 ? modTranslation
-                : (ModTranslation) typeof(ModTranslation).GetCachedConstructor(typeof(string), typeof(bool))
-                    .Invoke(new object[] {key, defaultEmpty});
+                : (ModTranslation) typeof(ModTranslation).GetCachedConstructor(
+                    typeof(string),
+                    typeof(bool)
+                ).Invoke(new object[] {key, defaultEmpty});
         }
     }
 }
