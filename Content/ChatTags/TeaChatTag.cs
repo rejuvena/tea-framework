@@ -26,7 +26,6 @@ namespace TeaFramework.Content.ChatTags
 
         public virtual void Unload()
         {
-            throw new System.NotImplementedException();
         }
     }
 }
