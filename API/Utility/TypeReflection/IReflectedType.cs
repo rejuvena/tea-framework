@@ -1,6 +1,7 @@
 ﻿using System;
+using TeaFramework.Utility;
 
-namespace TeaFramework.Utility.TypeReflection
+namespace TeaFramework.API.Utility.TypeReflection
 {
     /// <inheritdoc cref="IReflectedType"/>
     public interface IReflectedType<out TType> : IReflectedType
