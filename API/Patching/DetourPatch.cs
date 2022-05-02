@@ -1,0 +1,44 @@
+﻿using System.Reflection;
+using MonoMod.RuntimeDetour;
+
+namespace TeaFramework.API.Patching
+{
+    /// <summary>
+    ///     A readonly struct that manages the application of method detours.
+    /// </summary>
+    public readonly struct DetourPatch : IMonoModPatch
+    {
+        /// <summary>
+        ///     The method being detoured.
+        /// </summary>
+        public readonly MethodInfo BaseMethod;
+
+        /// <summary>
+        ///     The method performing the detour.
+        /// </summary>
+        public readonly MethodInfo PatchMethod;
+
+        /// <summary>
+        ///     The resulting detour hook.
+        /// </summary>
+        public readonly Hook PatchHook;
+
+        public DetourPatch(MethodInfo baseMethod, MethodInfo patchMethod)
+        {
+            BaseMethod = baseMethod;
+            PatchMethod = patchMethod;
+
+            PatchHook = new Hook(baseMethod, PatchMethod);
+        }
+
+        /// <summary>
+        ///     Applies the method detour.
+        /// </summary>
+        public void Apply() => PatchHook.Apply();
+
+        /// <summary>
+        ///     Unapplies the method detour.
+        /// </summary>
+        public void Unapply() => PatchHook.Undo();
+    }
+}

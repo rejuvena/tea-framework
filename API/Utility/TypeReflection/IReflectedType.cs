@@ -21,28 +21,34 @@ namespace TeaFramework.API.Utility.TypeReflection
         object? TypeInstance { get; }
 
         /// <summary>
+        ///     The reflected object's type.
+        /// </summary>
+        Type Type { get; }
+
+        /// <summary>
         ///     Gets a member stored in this type.
         /// </summary>
         /// <param name="type">The member type.</param>
         /// <param name="name">The member name.</param>
         /// <returns>The member instance.</returns>
-        object GetInstance(Reflection.CacheType type, string name);
+        object? GetInstance(Reflection.CacheType type, string name);
 
         /// <inheritdoc cref="GetInstance"/>
         /// <typeparam name="T">The return type.</typeparam>
-        T GetInstance<T>(Reflection.CacheType type, string name);
+        T? GetInstance<T>(Reflection.CacheType type, string name);
 
         /// <summary>
         ///     Invokes the specified method.
         /// </summary>
         /// <param name="name">The method to invoke.</param>
         /// <param name="signature">The method's signature.</param>
+        /// <param name="genericCount">The generic parameter count.</param>
         /// <param name="args">The method arguments.</param>
         /// <returns>The return value.</returns>
-        object? InvokeMethod(string name, Type[] signature, object?[] args);
+        object? InvokeMethod(string name, Type[] signature, int genericCount, object?[] args);
         
         /// <inheritdoc cref="InvokeMethod"/>
         /// <typeparam name="T">The return type.</typeparam>
-        T? InvokeMethod<T>(string name, Type[] signature, object?[] args);
+        T? InvokeMethod<T>(string name, Type[] signature, int genericCount, object?[] args);
     }
 }

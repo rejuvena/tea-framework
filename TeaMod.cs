@@ -4,7 +4,8 @@
 #endregion
 
 using System;
-using System.Reflection;
+using System.Collections.Generic;
+using TeaFramework.API.Patching;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -15,9 +16,19 @@ namespace TeaFramework
 	/// <remarks>
 	///		If you do not want to inherit this class, you can implement functionality directly with <see cref="ITeaMod"/>.
 	/// </remarks>
-	public class TeaMod : Mod, ITeaMod
+	public class TeaMod : Mod, ITeaMod, IPatchRepository
 	{
 		Mod ITeaMod.ModInstance => this;
+
+		public List<IMonoModPatch> Patches { get; } = new();
+
+		public override void Unload()
+		{
+			base.Unload();
+			
+			foreach (IMonoModPatch patch in Patches)
+				patch.Unapply();
+		}
 
 		/// <summary>
 		///		Executes a tasks only intended to be done by Tea Framework. Used as a workaround for a tModLoader issue (TML-2332).
