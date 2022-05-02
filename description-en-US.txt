@@ -1,3 +1,0 @@
-﻿Thank you so much for downloading [i:5009] [u:TeaFramework]! This is a library mod aiming to make modding easier and generally more convenient.
-
-What you're looking at here is a localized description, one of many features of [i:5009] [u:TeaFramework]. This enables mod developers to provide localized descriptions for different languages. The current language is English.

@@ -17,4 +17,13 @@
       <HintPath>lib\Tomlet.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="TeaFramework.Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="TeaFramework.Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TeaFramework.Tests\**" />
+  </ItemGroup>
 </Project>
