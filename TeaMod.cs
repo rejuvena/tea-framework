@@ -22,6 +22,13 @@ namespace TeaFramework
 
 		public List<IMonoModPatch> Patches { get; } = new();
 
+		public override void Load()
+		{
+			base.Load();
+			
+			MonoModHooks.RequestNativeAccess();
+		}
+
 		public override void Unload()
 		{
 			base.Unload();

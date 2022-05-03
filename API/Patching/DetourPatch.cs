@@ -23,12 +23,12 @@ namespace TeaFramework.API.Patching
         /// </summary>
         public readonly Hook PatchHook;
 
-        public DetourPatch(MethodInfo baseMethod, MethodInfo patchMethod)
+        public DetourPatch(MethodInfo baseMethod, MethodInfo patchMethod, IPatch patch)
         {
             BaseMethod = baseMethod;
             PatchMethod = patchMethod;
 
-            PatchHook = new Hook(baseMethod, PatchMethod);
+            PatchHook = new Hook(BaseMethod, PatchMethod, patch);
         }
 
         /// <summary>

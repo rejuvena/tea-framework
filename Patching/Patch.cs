@@ -15,6 +15,8 @@ namespace TeaFramework.Patching
     /// </remarks>
     public abstract class Patch<T> : IPatch where T : Delegate
     {
+        public Mod? Mod { get; protected set; }
+        
         public abstract MethodInfo ModifiedMethod { get; }
 
         public MethodInfo ModifyingMethod => PatchMethod.Method;
@@ -25,15 +27,15 @@ namespace TeaFramework.Patching
 
         public virtual void Apply(IPatchRepository patchRepository)
         {
-            if (PatchMethod is ILContext.Manipulator)
+            if (PatchMethod is ILContext.Manipulator manipulator)
             {
-                ILPatch patch = new(ModifiedMethod, ModifyingMethod);
+                ILPatch patch = new(ModifiedMethod, manipulator);
                 patchRepository.Patches.Add(patch);
                 patch.Apply();
             }
             else
             {
-                DetourPatch patch = new(ModifiedMethod, ModifyingMethod);
+                DetourPatch patch = new(ModifiedMethod, ModifyingMethod, this);
                 patchRepository.Patches.Add(patch);
                 patch.Apply();
             }
@@ -41,7 +43,9 @@ namespace TeaFramework.Patching
 
         public virtual void Load(Mod mod)
         {
-            if (mod is IPatchRepository repo)
+            Mod = mod;
+            
+            if (Mod is IPatchRepository repo)
                 Apply(repo);
         }
 

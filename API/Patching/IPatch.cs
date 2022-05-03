@@ -9,6 +9,11 @@ namespace TeaFramework.API.Patching
     public interface IPatch : ILoadable
     {
         /// <summary>
+        ///     The mod that owns this patch.
+        /// </summary>
+        Mod? Mod { get; }
+
+        /// <summary>
         ///     The method being patched.
         /// </summary>
         MethodInfo ModifiedMethod { get; }

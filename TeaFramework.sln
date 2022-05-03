@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeaFramework", "TeaFramewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeaFramework.Tests", "TeaFramework.Tests\TeaFramework.Tests.csproj", "{323CB1AE-E78C-4089-93B4-3B066494370E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeaExample", "TeaExample\TeaExample.csproj", "{BC0EBEFD-26E4-414D-8D86-6D65C00DFAB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{323CB1AE-E78C-4089-93B4-3B066494370E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{323CB1AE-E78C-4089-93B4-3B066494370E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{323CB1AE-E78C-4089-93B4-3B066494370E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0EBEFD-26E4-414D-8D86-6D65C00DFAB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0EBEFD-26E4-414D-8D86-6D65C00DFAB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0EBEFD-26E4-414D-8D86-6D65C00DFAB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0EBEFD-26E4-414D-8D86-6D65C00DFAB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
