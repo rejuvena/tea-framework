@@ -1,4 +1,9 @@
 # Ignore output and intermediate build output
 bin/
 obj/
+
+# Ignore auto-generated VS files.
 .vs/
+
+# Ignore auto-generated IDEA files.
+.idea/
