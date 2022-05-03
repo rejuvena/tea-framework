@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\tModLoader.targets" />
+    <PropertyGroup>
+        <AssemblyName>TeaExample</AssemblyName>
+        <TargetFramework>net6.0</TargetFramework>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+        <PackageReference Include="tModLoader.CodeAssist" Version="0.1.5" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\TeaFramework\TeaFramework.csproj" />
+    </ItemGroup>
+</Project>
