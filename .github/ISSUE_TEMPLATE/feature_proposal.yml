@@ -1,0 +1,42 @@
+name: Feature Proposal
+description: Propose a new feature/change for Tea Framework.
+labels: ["status: unresolved", "type: feature proposal"] 
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      Tea Framework is maintained by contributors.
+      Consider making a pull request to implement this feature yourself after discussion.
+      You should expect proposals to have heavy discussion and consideration before any action is taken.
+
+- type: markdown
+  attributes:
+    value: |
+      ## Is there an existing suggestion for this?
+      Please ensure that no one has already proposed this feature.
+
+- type: textarea
+  id: description
+  attributes:
+    label: Description
+    description: |
+      Describe your proposal briefly. 
+    placeholder: |
+      A new event could/a new hook could/a new API could benefit users by...
+
+- type: textarea
+  id: why
+  attributes:
+    label: What does this proposal attempt to solve or improve?
+    description: |
+      Describe use-cases for this proposed feature. How many it benefit users? Should this be included in Tea Framework?
+    placeholder: |
+      Currently, it is difficult to do this...
+
+- type: textarea
+  id: alternatives
+  attributes:
+    label: What (other) solutions may be considered?
+    description: |
+      Are there alternatives to your proposal? Please list them here.
