@@ -1,0 +1,4 @@
+# Ignore output and intermediate build output
+bin/
+obj/
+.vs/

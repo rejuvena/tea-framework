@@ -1,0 +1,9 @@
+displayName = Tea Example Mod
+author = Tomat
+version = 0.0.0.1
+buildIgnore = *.csproj, *.sln, *.user, obj\*, bin\*, .vs\*, .git\*, .idea\*
+modReferences = TeaFramework
+hideCode = false
+hideResources = false
+includeSource = true
+includePDB = true
