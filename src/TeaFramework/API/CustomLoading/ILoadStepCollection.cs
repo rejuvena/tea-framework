@@ -10,6 +10,7 @@ namespace TeaFramework.API.CustomLoading
         void Add(ILoadStep step);
         ILoadStep Get(string name);
         bool TryGet(string name, out ILoadStep? step);
+        ILoadStepCollection GetReversed();
 
         public ILoadStep this[string name] => Get(name);
     }

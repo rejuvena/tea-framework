@@ -1,4 +1,6 @@
-﻿using Terraria.ModLoader;
+﻿using System.Collections.Generic;
+using TeaFramework.API.CustomLoading;
+using Terraria.ModLoader;
 
 namespace TeaFramework
 {
@@ -11,5 +13,7 @@ namespace TeaFramework
         ///     The associated tModLoader <see cref="Mod"/>.
         /// </summary>
         Mod ModInstance { get; }
+
+        void GetLoadSteps(out IList<ILoadStep> steps);
     }
 }

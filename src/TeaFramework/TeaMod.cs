@@ -1,10 +1,11 @@
-#region License
+﻿#region License
 // Copyright (C) 2021 Tomat and Contributors
 // GNU General Public License Version 3, 29 June 2007
 #endregion
 
 using System;
 using System.Collections.Generic;
+using TeaFramework.API.CustomLoading;
 using TeaFramework.API.Patching;
 using Terraria.ModLoader;
 
@@ -21,18 +22,23 @@ namespace TeaFramework
         Mod ITeaMod.ModInstance => this;
 
         public List<IMonoModPatch> Patches { get; } = new();
-
+        
         public override void Load()
         {
-            base.Load();
-
             MonoModHooks.RequestNativeAccess();
+        }
+
+        /// <summary>
+        ///     Set up the list of steps that should be taken to load your mod.
+        /// </summary>
+        /// <param name="steps">The <see cref="IList{T}"/> of <see cref="ILoadStep"/>s you should add and modify.</param>
+        public virtual void GetLoadSteps(out IList<ILoadStep> steps)
+        {
+            steps = new List<ILoadStep>();
         }
 
         public override void Unload()
         {
-            base.Unload();
-
             foreach (IMonoModPatch patch in Patches)
                 patch.Unapply();
         }

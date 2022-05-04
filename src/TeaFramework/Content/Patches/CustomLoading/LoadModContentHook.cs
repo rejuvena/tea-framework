@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using MonoMod.Cil;
+using TeaFramework.API.CustomLoading;
+using TeaFramework.Impl.CustomLoading;
 using TeaFramework.Impl.Patching;
 using TeaFramework.Impl.Utility;
 using Terraria.ModLoader;
@@ -20,9 +23,13 @@ namespace TeaFramework.Content.Patches.CustomLoading
 
             c.Remove();
             c.EmitDelegate<Action<Action<Mod>, Mod>>((action, mod) => {
-                if (mod is ITeaMod)
+                if (mod is ITeaMod teaMod)
                 {
+                    teaMod.GetLoadSteps(out IList<ILoadStep> rawSteps);
+                    LoadStepCollection collection = new(rawSteps);
 
+                    foreach (ILoadStep step in collection)
+                        step.Load(teaMod);
                 }
                 else
                     action(mod);

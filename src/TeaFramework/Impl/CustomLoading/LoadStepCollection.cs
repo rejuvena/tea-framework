@@ -17,6 +17,11 @@ namespace TeaFramework.Impl.CustomLoading
             _steps = steps ?? new Dictionary<string, ILoadStep>();
         }
 
+        public LoadStepCollection(IList<ILoadStep> steps)
+        {
+            _steps = steps.ToDictionary(x => x.Name, x => x);
+        }
+
         public void Add(ILoadStep step) => _steps.Add(step.Name, step);
 
         public ILoadStep Get(string name) => _steps[name];
