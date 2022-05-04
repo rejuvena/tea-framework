@@ -44,6 +44,35 @@ namespace TeaFramework.Impl.Utility.TypeReflection
 
         public virtual T? GetInstance<T>(Reflection.CacheType type, string name) => (T?)GetInstance(type, name);
 
+        public virtual void SetInstance(Reflection.CacheType type, string name, object? value)
+        {
+            switch (type)
+            {
+                case Reflection.CacheType.Field:
+                    Type.GetCachedField(name).SetValue(TypeInstance, value);
+                    break;
+                
+                case Reflection.CacheType.Method:
+                    throw new ArgumentException("Methods cannot be set.", nameof(type));
+                
+                case Reflection.CacheType.Property:
+                    Type.GetCachedProperty(name).SetValue(TypeInstance, value);
+                    break;
+                
+                case Reflection.CacheType.Constructor:
+                    throw new ArgumentException("Constructors cannot be set.", nameof(type));
+                
+                case Reflection.CacheType.Type:
+                    throw new ArgumentException("Types cannot be set.", nameof(type));
+                
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+        public virtual void SetInstance<T>(Reflection.CacheType type, string name, T? value) =>
+            SetInstance(type, name, (object?) value);
+
         public virtual object? InvokeMethod(string name, Type[] signature, int genericCount, object?[] args) =>
             Type.GetCachedMethod(name, signature, genericCount).Invoke(TypeInstance, args);
 

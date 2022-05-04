@@ -92,8 +92,8 @@ namespace TeaFramework.Impl.Utility
         public static void SetFieldValue(this object obj, string name, object? value) =>
             obj.GetType().GetCachedField(name).SetValue(obj, value);
 
-        public static void SetFieldValue<T, TF>(this T obj, string name, TF? value) =>
-            typeof(T).GetCachedField(name).SetValue(obj, value);
+        public static void SetFieldValue<TF>(this object obj, string name, TF? value) =>
+            SetFieldValue(obj, name, (object?) value);
 
         #endregion
 
@@ -102,8 +102,8 @@ namespace TeaFramework.Impl.Utility
         public static void SetPropertyValue(this object obj, string name, object? value) =>
             obj.GetType().GetCachedProperty(name).SetValue(obj, value);
 
-        public static void SetPropertyValue<T, TF>(this T obj, string name, TF? value) =>
-            typeof(T).GetCachedProperty(name).SetValue(obj, value);
+        public static void SetPropertyValue<TF>(this object obj, string name, TF? value) =>
+            SetPropertyValue(obj, name, (object?) value);
 
         #endregion
 

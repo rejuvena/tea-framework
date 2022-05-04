@@ -38,6 +38,18 @@ namespace TeaFramework.API.Utility.TypeReflection
         T? GetInstance<T>(Reflection.CacheType type, string name);
 
         /// <summary>
+        ///     Sets a member stored in this type.
+        /// </summary>
+        /// <param name="type">The member type.</param>
+        /// <param name="name">The member name.</param>
+        /// <param name="value">The value to set.</param>
+        void SetInstance(Reflection.CacheType type, string name, object? value);
+
+        /// <inheritdoc cref="GetInstance"/>
+        /// <typeparam name="T">The return type.</typeparam>
+        void SetInstance<T>(Reflection.CacheType type, string name, T? value);
+
+        /// <summary>
         ///     Invokes the specified method.
         /// </summary>
         /// <param name="name">The method to invoke.</param>
