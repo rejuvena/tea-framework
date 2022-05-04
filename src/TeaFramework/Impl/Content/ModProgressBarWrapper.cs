@@ -13,19 +13,19 @@ namespace TeaFramework.Impl.Content
 
         public string DisplayText
         {
-            get => (string) UIProgress.GetFieldValue("DisplayText")!;
-            set => UIProgress.SetFieldValue("DisplayText", value);
+            get => (string) Reflection.InvokeFieldGetter(UIProgressType, nameof(DisplayText), UIProgress)!;
+            set => Reflection.InvokeFieldSetter(UIProgressType, nameof(DisplayText), UIProgress, value);
         }
 
         public float Progress
         {
-            get => (float)UIProgress.GetPropertyValue("Progress")!;
-            set => UIProgress.SetPropertyValue("Progress", value);
+            get => (float) Reflection.InvokePropertyGetter(UIProgressType, nameof(Progress), UIProgress)!;
+            set => Reflection.InvokePropertySetter(UIProgressType, nameof(Progress), UIProgress, value);
         }
 
         public string SubProgressText
         {
-            set => UIProgress.SetPropertyValue("SubProgressText", value);
+            set => Reflection.InvokePropertySetter(UIProgressType, nameof(SubProgressText), UIProgress, value);
         }
         
         public ModProgressBarWrapper(object uiProgress)

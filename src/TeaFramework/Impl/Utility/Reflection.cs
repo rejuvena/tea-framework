@@ -116,5 +116,8 @@ namespace TeaFramework.Impl.Utility
             property.SetValue(instance, value ?? Activator.CreateInstance(property.PropertyType));
 
         #endregion
+
+        public static bool IsStatic(this PropertyInfo property) =>
+            (property.GetMethod?.IsStatic ?? false) || (property.SetMethod?.IsStatic ?? false);
     }
 }
