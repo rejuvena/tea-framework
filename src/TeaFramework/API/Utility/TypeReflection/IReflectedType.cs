@@ -9,7 +9,7 @@ namespace TeaFramework.API.Utility.TypeReflection
         /// <inheritdoc cref="IReflectedType.TypeInstance"/>
         new TType? TypeInstance { get; }
     }
-    
+
     /// <summary>
     ///     Represents a wrapper around a reflected object, opening access of hidden members.
     /// </summary>
@@ -46,7 +46,7 @@ namespace TeaFramework.API.Utility.TypeReflection
         /// <param name="args">The method arguments.</param>
         /// <returns>The return value.</returns>
         object? InvokeMethod(string name, Type[] signature, int genericCount, object?[] args);
-        
+
         /// <inheritdoc cref="InvokeMethod"/>
         /// <typeparam name="T">The return type.</typeparam>
         T? InvokeMethod<T>(string name, Type[] signature, int genericCount, object?[] args);

@@ -21,8 +21,7 @@ namespace TeaFramework.Impl.Utility
 
         #region Cache Definition
 
-        private static readonly Dictionary<CacheType, Dictionary<string, object?>> Cache = new()
-        {
+        private static readonly Dictionary<CacheType, Dictionary<string, object?>> Cache = new() {
             [CacheType.Field] = new Dictionary<string, object?>(),
             [CacheType.Method] = new Dictionary<string, object?>(),
             [CacheType.Property] = new Dictionary<string, object?>(),
@@ -33,7 +32,7 @@ namespace TeaFramework.Impl.Utility
         private static T? RetrieveFromCache<T>(CacheType cacheType, string key, Func<T?> provider)
         {
             if (Cache[cacheType].ContainsKey(key))
-                return (T?) Cache[cacheType][key];
+                return (T?)Cache[cacheType][key];
 
             T? value = provider();
             Cache[cacheType].Add(key, value);
@@ -44,10 +43,10 @@ namespace TeaFramework.Impl.Utility
 
         #region Name Suppliers
 
-        public static string GetFieldName(Type type, string field) => 
+        public static string GetFieldName(Type type, string field) =>
             Cecil.GetTypeName(type) + " " + field;
-        
-        public static string GetPropertyName(Type type, string property) => 
+
+        public static string GetPropertyName(Type type, string property) =>
             Cecil.GetTypeName(type) + " " + property;
 
         public static string GetMethodName(Type type, string method, Type[] signature, int genericCount) =>
@@ -67,8 +66,8 @@ namespace TeaFramework.Impl.Utility
             if (genericCount != 0)
             {
                 builder.Append('<');
-                
-                for (int i = 0; i < genericCount; i++) 
+
+                for (int i = 0; i < genericCount; i++)
                     builder.Append($"T{i}");
 
                 builder.Append('>');
@@ -83,9 +82,9 @@ namespace TeaFramework.Impl.Utility
 
                 builder.Append(Cecil.GetTypeName(signature[i]));
             }
-            
+
             builder.Append(')');
-            
+
             return builder.ToString();
         }
 
