@@ -34,7 +34,6 @@ namespace TeaFramework
             steps = new List<ILoadStep>();
 
             steps.Add(DefaultLoadSteps.LoadMonoModHooks);
-            Terraria.ID.TileID.Saku
         }
         
         public sealed override void Load() { }
