@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using TeaFramework.API.CustomLoading;
 using TeaFramework.API.Patching;
+using TeaFramework.Impl.CustomLoading;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -22,11 +23,7 @@ namespace TeaFramework
         Mod ITeaMod.ModInstance => this;
 
         public List<IMonoModPatch> Patches { get; } = new();
-        
-        public override void Load()
-        {
-            MonoModHooks.RequestNativeAccess();
-        }
+
 
         /// <summary>
         ///     Set up the list of steps that should be taken to load your mod.
@@ -35,13 +32,12 @@ namespace TeaFramework
         public virtual void GetLoadSteps(out IList<ILoadStep> steps)
         {
             steps = new List<ILoadStep>();
-        }
 
-        public override void Unload()
-        {
-            foreach (IMonoModPatch patch in Patches)
-                patch.Unapply();
+            steps.Add(DefaultLoadSteps.LoadMonoModHooks);
+            Terraria.ID.TileID.Saku
         }
+        
+        public sealed override void Load() { }
 
         /// <summary>
         ///		Executes a tasks only intended to be done by Tea Framework. Used as a workaround for a tModLoader issue (TML-2332).

@@ -23,6 +23,11 @@ namespace TeaFramework.Content.Patches.CustomLoading
 
             c.Remove();
             c.EmitDelegate<Action<Action<Mod>, Mod>>((action, mod) => {
+                // Only call this part during the first time LoadModContent is called
+                bool? isLoading = (bool?)typeof(Mod).GetCachedField("loading").GetValue(mod);
+                if (isLoading.HasValue && !isLoading.Value)
+                    return;
+                
                 if (mod is ITeaMod teaMod)
                 {
                     teaMod.GetLoadSteps(out IList<ILoadStep> rawSteps);

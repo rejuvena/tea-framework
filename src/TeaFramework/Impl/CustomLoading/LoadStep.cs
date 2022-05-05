@@ -10,15 +10,18 @@ namespace TeaFramework.Impl.CustomLoading
     {
         public string Name { get; set; }
         public float Weight { get; set; }
-        private readonly Action<ITeaMod> _action;
+        private readonly Action<ITeaMod> _load;
+        private readonly Action<ITeaMod> _unload;
 
-        public LoadStep(string name, float weight, Action<ITeaMod> action)
+        public LoadStep(string name, float weight, Action<ITeaMod> load, Action<ITeaMod> unload)
         {
             Name = name;
             Weight = weight;
-            _action = action;
+            _load = load;
+            _unload = unload;
         }
 
-        public void Load(ITeaMod teaMod) => _action(teaMod);
+        public void Load(ITeaMod teaMod) => _load(teaMod);
+        public void Unload(ITeaMod teaMod) => _unload(teaMod);
     }
 }

@@ -9,5 +9,6 @@
         float Weight { get; set; }
 
         void Load(ITeaMod teaMod);
+        void Unload(ITeaMod teaMod);
     }
 }
