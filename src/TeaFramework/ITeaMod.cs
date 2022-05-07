@@ -1,4 +1,6 @@
-﻿using Terraria.ModLoader;
+﻿using log4net;
+using TeaFramework.API.Logging;
+using Terraria.ModLoader;
 
 namespace TeaFramework
 {
@@ -11,5 +13,10 @@ namespace TeaFramework
         ///     The associated tModLoader <see cref="Mod"/>.
         /// </summary>
         Mod ModInstance { get; }
+
+        /// <summary>
+        ///     A wrapped <see cref="ILog"/> instance.
+        /// </summary>
+        ILogWrapper LogWrapper { get; }
     }
 }

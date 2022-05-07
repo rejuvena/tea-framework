@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TeaFramework.API.Logging;
 using TeaFramework.API.Patching;
+using TeaFramework.Impl.Logging;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -15,8 +17,12 @@ namespace TeaFramework
 	{
 		Mod ITeaMod.ModInstance => this;
 
-		public List<IMonoModPatch> Patches { get; } = new();
+        public ILogWrapper LogWrapper => BackingLogWrapper ??= new LogWrapper(Logger);
 
+        public List<IMonoModPatch> Patches { get; } = new();
+
+        protected ILogWrapper? BackingLogWrapper;
+        
 		public override void Load()
 		{
 			base.Load();

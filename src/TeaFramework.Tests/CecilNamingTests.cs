@@ -2,9 +2,8 @@
 using System.Reflection;
 using NUnit.Framework;
 using TeaFramework.Impl.Utility;
-using TestNamespace;
 
-namespace TestNamespace
+namespace TeaFramework.Tests
 {
     public class InstanceClass
     {
@@ -34,10 +33,7 @@ namespace TestNamespace
         {
         }
     }
-}
 
-namespace TeaFramework.Tests
-{
     public static class CecilNamingTests
     {
         [Test]
