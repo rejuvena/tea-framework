@@ -1,6 +1,6 @@
 # Tea Framework
 
-_Tea Framework_ (herebye _Tea_) is a progressive modding framework for [tModLoader](https://github.com/tModLoader).
+_Tea Framework_ (hereby _Tea_) is a progressive modding framework for [tModLoader](https://github.com/tModLoader).
 
 Tea provides numerous utilities for modders to use, and heavily reduces boilerplate.
 
@@ -25,3 +25,6 @@ Outlined below is a list of currently-implemented features, as well as our goals
   - Isolated to an `IPatchRepository`, mostly decoupling it from `Terraria.ModLoader.Mod`.
 - **(PLANNED)** A redone loading system, working with steps (represented as `ILoadStep`).
   - Eliminates `Terraria.ModLoader.Mod.Load()`.
+
+## Documentation
+Tea has summaries for most important types and members. Additionally, we have a [Read the Docs](readthedocs.io) 
