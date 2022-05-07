@@ -1,4 +1,4 @@
-# Ignore output and intermediate build output
+# Ignore output and intermediate build output of C# projects.
 bin/
 obj/
 
@@ -7,3 +7,6 @@ obj/
 
 # Ignore auto-generated IDEA files.
 .idea/
+
+# Ignore auto-generated VSCode files.
+.vscode/

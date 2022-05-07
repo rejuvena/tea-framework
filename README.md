@@ -1,32 +1,27 @@
-# Tea
-_Tea_ is a modding framework that functions as a mod, and is designed to be used as a dependency by other mods for _tModLoader_.
+# Tea Framework
 
-It utilizes tModLoader's assembly/mod dependency functionality to provide an additional layer of abstraction between numerous base tML calls as well as providing numerous niche utilities.
+_Tea Framework_ (herebye _Tea_) is a progressive modding framework for [tModLoader](https://github.com/tModLoader).
 
-_Tea_ is developed for the 1.4 _tModLoader_ alpha.
+Tea provides numerous utilities for modders to use, and heavily reduces boilerplate.
 
-## What is Tea?
-Stemming from a joke about the naming convention of Terraria-related projects (see: **t**Shock, **t**ModLoader, **t**Config, **t**API), Tea was originally envisioned as a sort of "competitor mod loader" (think Forge vs Fabric (and I guess Quilt...) for Minecraft).
+## Why the Name?
 
-_Tea_ works off the base of an older library mod developed by [myself](https://github.com/Steviegt6) called _TomatoLib_, recycling much of the code originally used, though with considerably better quality and stripping away many redundancies.
+Stemming from a joke about the naming convention of Terraria-related projects (see: **t**Shock, **t**ModLoader, **t**Config, **t**API), Tea was originally envisioned as several projects. When I was first learning assembly loading, I decided to "port" a super-old version of tModLoader to 1.4 (rest assured, it never got far). After this, I later contemplated using the name for a sort of "competitive mod loader" (think Forge vs. Fabric (and Quilt as well..., I guess)). We came to the conclusion that Tea, as a concept, worked better as a tModLoader mod that offered an expanded featureset.
+
+Tea works off of two libraries, [TomatoLib](https://github.com/Steviegt6/TomatoLib) by [myself](https://github.com/Steviegt6) and [pboneLib](https://github.com/Pbone3/PboneLib) by [pbone](https://github.com/Pbone3).
 
 ## Features
-* An extra layer of abstraction, inherit from `TeaFramework.TeaMod` instead of `Terraria.ModLoader.Mod`!
-* `FastNoiseLite`, all located in `TeaFramework.Common.Utilities.FastNoiseLite`.
-* Advanced reflection utilities, speed up your programming without having to mess with the nitty-gritty!
-* Enumerable comparison system framework (compare one item against an enumerable collection to find a match).
-* `ItemCollection` system for `Item` enumeration.
-* A variety of helpful extension methods to aid you in various ways.
-* A component-based item glowmask system.
-* `IDisposable` `SpriteBatch` system with smart parameter restoration.
-* An extensible localization system for custom file types, `.lang` and `.toml` supported by default.
-* Object-oriented `Mod.Call` handling.
-* Localizable mod descriptions (names partially implemented).
 
-## Planned Features
-* Markdown-formattable descriptions.
-* Hooks for modifying the drawing of your mod's UI panel in the mod list.
-* Better AI system with a more component-based focus.
-* Manipulation of button drawing for your mod's UI panel.
-* Mod.Call overriding, hijack other mods!
-* and more, I guess :)
+Tea is still under heavy development. We have designed Tea in such a way that allows us to create base interfaces for all features of the library. This allows users to freely implement their own dependencies instead of using our default ones. We have purposefully designed Tea to center around the `Terraria.ModLoader.Mod` class (we expect you to use `TeaFramework.TeaMod`, which extends `Terraria.ModLoader.Mod` and implements `ITeaMod` and `IPatchRepository`), though you may freely implement every interface aside from `TeaMod` elsewhere.
+
+Outlined below is a list of currently-implemented features, as well as our goals moving forward:
+
+- A fully-featured reflection library built in.
+  - Features caching (likely made redundant by the modern CLR...) as well as easy access to members through the elimenation of `BindingFlag` boilerplate.
+  - Dynamic method generation for quickly accessing private fields and properties (a modified and expanded system developed by [absoluteAquarian](https://github.com/absoluteAquarian)).
+- An expanded patching API for easily modifying compiled IL at runtime.
+  - This is a sort of "wrapper" around [MonoMod](https://github.com/MonoMod/MonoMod), which is already supplied by tModLoader.
+  - Patches are delegate-based and use autoloading for convenience.
+  - Isolated to an `IPatchRepository`, mostly decoupling it from `Terraria.ModLoader.Mod`.
+- **(PLANNED)** A redone loading system, working with steps (represented as `ILoadStep`).
+  - Eliminates `Terraria.ModLoader.Mod.Load()`.
