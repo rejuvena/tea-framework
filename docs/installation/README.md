@@ -13,7 +13,7 @@ Is there a better way? -->
 modReferences=TeaFramework
 ```
 
-If you already have other modes in your `modReferences` list, you may add `TeaFramework` by appending `,TeaFramework` (mind the comma).
+If you already have other mods in your `modReferences` list, you may add `TeaFramework` by appending `,TeaFramework` (mind the comma).
 
 Once you have done this, you have a few approaches for importing the assembly into your mod to reference in compilation and with an IDE.
 
