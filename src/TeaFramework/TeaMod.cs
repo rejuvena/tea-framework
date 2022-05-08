@@ -21,7 +21,7 @@ namespace TeaFramework
     {
         public TeaMod()
         {
-            ExecutePrivately(MonoModHooks.RequestNativeAccess);
+            MonoModHooks.RequestNativeAccess();
         }
 
         #region ITeaMod Impl
