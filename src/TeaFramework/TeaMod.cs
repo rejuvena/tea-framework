@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using TeaFramework.API.ContentLoading;
+using TeaFramework.API.Events;
 using TeaFramework.API.Logging;
 using TeaFramework.API.Patching;
+using TeaFramework.Impl.Events;
 using TeaFramework.Impl.Logging;
 using Terraria.ModLoader;
 
@@ -16,6 +18,11 @@ namespace TeaFramework
     /// </remarks>
     public class TeaMod : Mod, ITeaMod, IPatchRepository
     {
+        public TeaMod()
+        {
+            ExecutePrivately(MonoModHooks.RequestNativeAccess);
+        }
+        
         #region ITeaMod Impl
 
         Mod ITeaMod.ModInstance => this;
@@ -23,6 +30,8 @@ namespace TeaFramework
         public ILogWrapper LogWrapper => new LogWrapper(Logger);
 
         public IEnumerable<IContentLoader> ContentLoaders { get; } = ITeaMod.GetDefaultContentLoaders();
+
+        public IEventBus EventBus { get; } = new EventBus();
 
         #endregion
 
@@ -33,13 +42,6 @@ namespace TeaFramework
         #endregion
 
         #region Mod Hooks
-
-        public override void Load()
-        {
-            base.Load();
-
-            MonoModHooks.RequestNativeAccess();
-        }
 
         public override void Unload()
         {

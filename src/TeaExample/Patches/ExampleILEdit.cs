@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using MonoMod.Cil;
+using TeaExampleMod.Events;
+using TeaFramework.API.Events;
 using TeaFramework.Impl.Patching;
 using TeaFramework.Impl.Utility;
 using Terraria;
@@ -19,7 +21,11 @@ namespace TeaExampleMod.Patches
             ILCursor c = new(il);
 
             c.GotoNext(MoveType.After, x => x.MatchLdsfld<Main>("versionNumber"));
-            c.EmitDelegate<Func<string, string>>(vers => $"{vers}: Hello from Tea Example Mod!");
+            c.EmitDelegate<Func<string, string>>(vers => {
+                VersionDrawEvent @event = new() {VersionText = vers};
+                TeaEventDispatcher.DispatchEvent<VersionDrawEvent>(@event);
+                return @event.VersionText;
+            });
         };
     }
 }

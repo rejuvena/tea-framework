@@ -39,6 +39,10 @@ namespace TeaFramework.API.Patching
         /// <summary>
         ///     Unapplies the method detour.
         /// </summary>
-        public void Unapply() => PatchHook.Undo();
+        public void Unapply()
+        {
+            if (PatchHook.IsApplied) 
+                PatchHook.Undo();
+        }
     }
 }
