@@ -4,6 +4,7 @@ using TeaFramework.API.ContentLoading;
 using TeaFramework.API.Events;
 using TeaFramework.API.Logging;
 using TeaFramework.Impl.Content.ContentLoaders;
+using TeaFramework.API.CustomLoading;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -34,9 +35,12 @@ namespace TeaFramework
         /// </summary>
         IEventBus EventBus { get; }
 
+        void GetLoadSteps(out IList<ILoadStep> steps);
+
         /// <summary>
         ///     Returns a collection of default content loaders.
         /// </summary>
-        public static IEnumerable<IContentLoader> GetDefaultContentLoaders() => new IContentLoader[] { new EventListenerLoader() };
+        public static IEnumerable<IContentLoader> GetDefaultContentLoaders() =>
+            new IContentLoader[] {new EventListenerLoader()};
     }
 }

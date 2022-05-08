@@ -29,7 +29,7 @@ namespace TeaFramework.API.Patching
         {
             BaseMethod = baseMethod;
             PatchMethod = patchMethod;
-            
+
             PatchDelegate = new ILContext.Manipulator(PatchMethod);
         }
 
