@@ -7,4 +7,4 @@
   - [Reflection Utilities](features/reflection/README.md)
     - [Caching and Other Utilities](features/reflection/caching.md)
     - [Method Generators](features/reflection/generators.md)
-  - [Patching Framework](features/patching/framework.md)
+  - [Patching Framework](features/patching/README.md)
