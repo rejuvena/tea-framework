@@ -1,4 +1,4 @@
-# Summary
+# Table of contents
 
 - [Installation](installation/README.md)
   - [tModLoader Mod Dependencies](installation/mod_deps.md)
