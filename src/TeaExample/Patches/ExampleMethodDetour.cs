@@ -7,7 +7,7 @@ using Terraria;
 namespace TeaExampleMod.Patches
 {
     // Method detours are created by passing a custom delegate as the generic parameter of a Patch<T>.
-    // For Most detours on Terraria methods, you should use deletages from the On.Terraria namespace,
+    // For Most detours on Terraria methods, you should use delegates from the On.Terraria namespace,
     // but for the sake of showing it off we use a custom delegate here. Note that no delegates exist
     // for the Terraria.ModLoader namespace and thus you must make your own for methods in there.
     public class ExampleMethodDetour : Patch<ExampleMethodDetour.DrawCursor>
