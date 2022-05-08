@@ -6,7 +6,7 @@ namespace TeaFramework.Impl.Events
 {
     public class EventBus : IEventBus
     {
-        protected readonly Dictionary<Type, List<IEventListener>> Listeners = new();
+        public Dictionary<Type, List<IEventListener>> Listeners { get; } = new();
 
         public void Subscribe(IEventListener listener) => GetListeners(listener.Type).Add(listener);
 

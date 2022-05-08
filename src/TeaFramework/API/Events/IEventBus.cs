@@ -1,10 +1,15 @@
-﻿namespace TeaFramework.API.Events
+﻿using System;
+using System.Collections.Generic;
+
+namespace TeaFramework.API.Events
 {
     /// <summary>
     ///     Describes an object capable of dispatching events to listeners.
     /// </summary>
     public interface IEventBus
     {
+        Dictionary<Type, List<IEventListener>> Listeners { get; }
+        
         void Subscribe(IEventListener listener);
 
         void Unsubscribe(IEventListener listener);

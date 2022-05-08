@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TeaFramework.API.ContentLoading;
 using TeaFramework.API.Events;
 using TeaFramework.API.Logging;
@@ -22,7 +23,7 @@ namespace TeaFramework
         {
             ExecutePrivately(MonoModHooks.RequestNativeAccess);
         }
-        
+
         #region ITeaMod Impl
 
         Mod ITeaMod.ModInstance => this;
@@ -46,6 +47,9 @@ namespace TeaFramework
         public override void Unload()
         {
             base.Unload();
+
+            foreach (IEventListener listener in EventBus.Listeners.Values.SelectMany(listeners => listeners))
+                EventBus.Unsubscribe(listener);
 
             foreach (IMonoModPatch patch in Patches)
                 patch.Unapply();
