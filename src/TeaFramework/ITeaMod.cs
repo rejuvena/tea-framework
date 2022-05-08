@@ -1,4 +1,6 @@
-﻿using log4net;
+﻿using System.Collections.Generic;
+using log4net;
+using TeaFramework.API.ContentLoading;
 using TeaFramework.API.Logging;
 using Terraria.ModLoader;
 
@@ -18,5 +20,16 @@ namespace TeaFramework
         ///     A wrapped <see cref="ILog"/> instance.
         /// </summary>
         ILogWrapper LogWrapper { get; }
+
+        /// <summary>
+        ///     Retrieves a collection of content loaders.
+        /// </summary>
+        /// <returns>The content loaders to retrieve.</returns>
+        IEnumerable<IContentLoader> ContentLoaders { get; }
+
+        /// <summary>
+        ///     Returns a collection of default content loaders.
+        /// </summary>
+        public static IEnumerable<IContentLoader> GetDefaultContentLoaders() => new IContentLoader[] { };
     }
 }
