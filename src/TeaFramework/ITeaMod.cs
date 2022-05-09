@@ -3,8 +3,8 @@ using log4net;
 using TeaFramework.API.ContentLoading;
 using TeaFramework.API.Events;
 using TeaFramework.API.Logging;
-using TeaFramework.Impl.Content.ContentLoaders;
 using TeaFramework.API.CustomLoading;
+using TeaFramework.Content.ContentLoaders;
 using Terraria.ModLoader;
 
 namespace TeaFramework

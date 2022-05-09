@@ -8,7 +8,7 @@ using TeaFramework.Impl.Utility;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Impl.Content.Patches
+namespace TeaFramework.Content.Patches.ContentLoading
 {
     public class ContentLoaderEdit : Patch<ContentLoaderEdit.AddContent>
     {

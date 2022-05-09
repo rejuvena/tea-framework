@@ -46,12 +46,7 @@ namespace TeaFramework
         ///     Set up the list of steps that should be taken to load your mod.
         /// </summary>
         /// <param name="steps">The <see cref="IList{T}"/> of <see cref="ILoadStep"/>s you should add and modify.</param>
-        public virtual void GetLoadSteps(out IList<ILoadStep> steps)
-        {
-            steps = new List<ILoadStep>();
-
-            steps.Add(DefaultLoadSteps.LoadMonoModHooks);
-        }
+        public virtual void GetLoadSteps(out IList<ILoadStep> steps) => steps = DefaultLoadSteps.GetDefaultSteps();
 
         #endregion
 

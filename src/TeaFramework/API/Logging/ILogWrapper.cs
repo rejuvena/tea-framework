@@ -17,7 +17,7 @@ namespace TeaFramework.API.Logging
         /// </summary>
         /// <param name="type">The patch failure type.</param>
         /// <param name="message">The message to log.</param>
-        void LogPatchFailure(string type, string message);
+        string LogPatchFailure(string type, string message);
 
         /// <summary>
         ///     Logs an op-code jump failure.
@@ -26,6 +26,6 @@ namespace TeaFramework.API.Logging
         /// <param name="typeMethod">The name of the patched method.</param>
         /// <param name="opcode">The opcode which could not be jumped to.</param>
         /// <param name="value">The expected value of the opcode.</param>
-        void LogOpCodeJumpFailure(string typeName, string typeMethod, string opcode, string? value);
+        string LogOpCodeJumpFailure(string typeName, string typeMethod, string opcode, string? value);
     }
 }

@@ -12,9 +12,14 @@ namespace TeaFramework.Impl.Logging
             Logger = logger;
         }
 
-        public void LogPatchFailure(string type, string message) => Logger.Error($"PATCH FAILURE {type} @ " + message);
+        public string LogPatchFailure(string type, string message)
+        {
+            message = $"PATCH FAILURE {type} @ " + message;
+            Logger.Error(message);
+            return message;
+        }
 
-        public void LogOpCodeJumpFailure(string typeName, string typeMethod, string opcode, string? value) =>
+        public string LogOpCodeJumpFailure(string typeName, string typeMethod, string opcode, string? value) =>
             LogPatchFailure(
                 "OpCode Jump Failure",
                 $"{typeName}::{typeMethod} -> {opcode}{(value is not null ? $" {value}" : "")}"
