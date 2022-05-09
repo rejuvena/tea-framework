@@ -19,7 +19,7 @@ namespace TeaExampleMod.Patches
 
             m.ReplaceCallvirts<Item, Action<Item, string>>(
                 "SetNameOverride",
-                (item, s) => item.SetNameOverride("Hello from Tea Framework: " + s)
+                (item, s) => item.SetNameOverride("Hello from Tea Example Mod: " + s)
             );
         };
     }

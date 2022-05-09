@@ -34,7 +34,10 @@ namespace TeaFramework.Content.Patches.CustomLoading
                 // Only call this part during the first time LoadModContent is called
                 bool? isLoading = (bool?)typeof(Mod).GetCachedField("loading").GetValue(mod);
                 if (isLoading.HasValue && !isLoading.Value)
+                {
+                    action(mod);
                     return;
+                }
                 
                 if (mod is ITeaMod teaMod)
                 {
