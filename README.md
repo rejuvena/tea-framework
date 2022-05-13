@@ -27,4 +27,4 @@ Outlined below is a list of currently-implemented features, as well as our goals
   - Eliminates `Terraria.ModLoader.Mod.Load()`.
 
 ## Documentation
-Tea has summaries for most important types and members. Additionally, we have a [Read the Docs](readthedocs.io) 
+Tea has summaries for most important types and members. You can view elaboratory articles and guides [here](https://tomat.gitbook.io/tea-framework/).
