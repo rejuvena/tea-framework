@@ -150,9 +150,8 @@ namespace TeaFramework.Impl.CustomLoading
             teaMod => { },
             teaMod => {
                 Main.QueueMainThreadAction(() => {
-                    // Enumerate early.
-                    IEventListener[] listeners =
-                        teaMod.EventBus.Listeners.Values.SelectMany(listeners => listeners).ToArray();
+                    IEventListener[] listeners = teaMod.EventBus.Listeners.Values.SelectMany(listeners => listeners)
+                        .ToArray();
 
                     foreach (IEventListener listener in listeners)
                         teaMod.EventBus.Unsubscribe(listener);

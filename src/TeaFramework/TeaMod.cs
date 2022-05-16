@@ -9,6 +9,7 @@ using TeaFramework.Impl.Events;
 using TeaFramework.Impl.Logging;
 using TeaFramework.API.CustomLoading;
 using TeaFramework.Impl.CustomLoading;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -62,11 +63,16 @@ namespace TeaFramework
 
             // Re-create the default unload steps here since they're removed once TeaMod.Unload is ran for the base instance.
             ExecutePrivately(() => {
-                foreach (IEventListener listener in EventBus.Listeners.Values.SelectMany(listeners => listeners))
-                    EventBus.Unsubscribe(listener);
+                Main.QueueMainThreadAction(() => {
+                    IEventListener[] listeners = EventBus.Listeners.Values.SelectMany(listeners => listeners)
+                        .ToArray();
 
-                foreach (IMonoModPatch patch in Patches)
-                    patch.Unapply();
+                    foreach (IEventListener listener in listeners)
+                        EventBus.Unsubscribe(listener);
+
+                    foreach (IMonoModPatch patch in Patches)
+                        patch.Unapply();
+                });
             });
         }
 
