@@ -3,7 +3,7 @@ using TeaFramework.API.ContentLoading;
 using TeaFramework.API.Events;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Impl.Content.ContentLoaders
+namespace TeaFramework.Content.ContentLoaders
 {
     public class EventListenerLoader : IContentLoader
     {

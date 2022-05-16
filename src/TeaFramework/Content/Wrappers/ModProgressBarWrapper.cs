@@ -2,7 +2,7 @@
 using TeaFramework.Impl.Utility;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Impl.Content.Wrappers
+namespace TeaFramework.Content.Wrappers
 {
     public readonly struct ModProgressBarWrapper
     {

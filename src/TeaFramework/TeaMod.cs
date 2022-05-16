@@ -1,12 +1,15 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TeaFramework.API.ContentLoading;
 using TeaFramework.API.Events;
 using TeaFramework.API.Logging;
 using TeaFramework.API.Patching;
 using TeaFramework.Impl.Events;
 using TeaFramework.Impl.Logging;
+using TeaFramework.API.CustomLoading;
+using TeaFramework.Impl.CustomLoading;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace TeaFramework
@@ -21,7 +24,8 @@ namespace TeaFramework
     {
         public TeaMod()
         {
-            MonoModHooks.RequestNativeAccess();
+            // Privately request native access to perform our early bird edits.
+            ExecutePrivately(MonoModHooks.RequestNativeAccess);
         }
 
         #region ITeaMod Impl
@@ -40,19 +44,36 @@ namespace TeaFramework
 
         public List<IMonoModPatch> Patches { get; } = new();
 
+        /// <summary>
+        ///     Set up the list of steps that should be taken to load your mod.
+        /// </summary>
+        /// <param name="steps">The <see cref="IList{T}"/> of <see cref="ILoadStep"/>s you should add and modify.</param>
+        public virtual void GetLoadSteps(out IList<ILoadStep> steps) => steps = DefaultLoadSteps.GetDefaultSteps();
+
         #endregion
 
         #region Mod Hooks
 
-        public override void Unload()
+        // Made sealed to facilitate the use of load hooks.
+        public sealed override void Load() { }
+
+        public sealed override void Unload()
         {
             base.Unload();
 
-            foreach (IEventListener listener in EventBus.Listeners.Values.SelectMany(listeners => listeners))
-                EventBus.Unsubscribe(listener);
+            // Re-create the default unload steps here since they're removed once TeaMod.Unload is ran for the base instance.
+            ExecutePrivately(() => {
+                Main.QueueMainThreadAction(() => {
+                    IEventListener[] listeners = EventBus.Listeners.Values.SelectMany(listeners => listeners)
+                        .ToArray();
 
-            foreach (IMonoModPatch patch in Patches)
-                patch.Unapply();
+                    foreach (IEventListener listener in listeners)
+                        EventBus.Unsubscribe(listener);
+
+                    foreach (IMonoModPatch patch in Patches)
+                        patch.Unapply();
+                });
+            });
         }
 
         #endregion
