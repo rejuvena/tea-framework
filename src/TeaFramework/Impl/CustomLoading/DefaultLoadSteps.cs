@@ -6,6 +6,7 @@ using TeaFramework.API.CustomLoading;
 using TeaFramework.API.Events;
 using TeaFramework.API.Patching;
 using TeaFramework.Impl.Utility;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Impl.CustomLoading
@@ -62,8 +63,10 @@ namespace TeaFramework.Impl.CustomLoading
                 if (teaMod is not IPatchRepository repo)
                     return;
 
-                foreach (IMonoModPatch patch in repo.Patches)
-                    patch.Unapply();
+                Main.QueueMainThreadAction(() => {
+                    foreach (IMonoModPatch patch in repo.Patches)
+                        patch.Unapply();
+                });
             });
 
         /// <summary>
@@ -146,8 +149,14 @@ namespace TeaFramework.Impl.CustomLoading
             UnsubscribeEventsWeight,
             teaMod => { },
             teaMod => {
-                foreach (IEventListener listener in teaMod.EventBus.Listeners.Values.SelectMany(listeners => listeners))
-                    teaMod.EventBus.Unsubscribe(listener);
+                Main.QueueMainThreadAction(() => {
+                    // Enumerate early.
+                    IEventListener[] listeners =
+                        teaMod.EventBus.Listeners.Values.SelectMany(listeners => listeners).ToArray();
+
+                    foreach (IEventListener listener in listeners)
+                        teaMod.EventBus.Unsubscribe(listener);
+                });
             }
         );
 
