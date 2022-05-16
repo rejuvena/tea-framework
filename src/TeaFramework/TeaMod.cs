@@ -23,7 +23,8 @@ namespace TeaFramework
     {
         public TeaMod()
         {
-            MonoModHooks.RequestNativeAccess();
+            // Privately request native access to perform our early bird edits.
+            ExecutePrivately(MonoModHooks.RequestNativeAccess);
         }
 
         #region ITeaMod Impl
@@ -55,15 +56,18 @@ namespace TeaFramework
         // Made sealed to facilitate the use of load hooks.
         public sealed override void Load() { }
 
-        public override void Unload()
+        public sealed override void Unload()
         {
             base.Unload();
 
-            foreach (IEventListener listener in EventBus.Listeners.Values.SelectMany(listeners => listeners))
-                EventBus.Unsubscribe(listener);
+            // Re-create the default unload steps here since they're removed once TeaMod.Unload is ran for the base instance.
+            ExecutePrivately(() => {
+                foreach (IEventListener listener in EventBus.Listeners.Values.SelectMany(listeners => listeners))
+                    EventBus.Unsubscribe(listener);
 
-            foreach (IMonoModPatch patch in Patches)
-                patch.Unapply();
+                foreach (IMonoModPatch patch in Patches)
+                    patch.Unapply();
+            });
         }
 
         #endregion
