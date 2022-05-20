@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace TeaFramework.Content.Patches.ContentLoading
 {
-    public class ContentLoaderEdit : Patch<ContentLoaderEdit.AddContent>
+    public class ContentLoaderDetour : Patch<ContentLoaderDetour.AddContent>
     {
         public delegate void Orig(Mod self, ILoadable instance);
 
