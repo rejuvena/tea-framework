@@ -1,5 +1,5 @@
 ﻿using TeaExampleMod.Events;
-using TeaFramework.API.Events;
+using TeaFramework.API.Features.Events;
 using Terraria.ModLoader;
 
 namespace TeaExampleMod.Listeners

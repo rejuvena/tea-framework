@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using TeaFramework.API.CustomLoading;
-using TeaFramework.Impl.CustomLoading;
+using TeaFramework.API.Features.CustomLoading;
+using TeaFramework.Features.CustomLoading;
 
 namespace TeaFramework.Tests
 {

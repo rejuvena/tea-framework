@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TeaFramework.API.ContentLoading;
-using TeaFramework.Exceptions;
-using TeaFramework.Impl.Patching;
-using TeaFramework.Impl.Utility;
+using TeaFramework.API.Exceptions;
+using TeaFramework.API.Features.ContentLoading;
+using TeaFramework.Features.Patching;
+using TeaFramework.Features.Utility;
 using Terraria.Localization;
 using Terraria.ModLoader;
 

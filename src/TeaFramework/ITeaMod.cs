@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using log4net;
-using TeaFramework.API.ContentLoading;
-using TeaFramework.API.Events;
-using TeaFramework.API.Logging;
-using TeaFramework.API.CustomLoading;
+using TeaFramework.API.Features.ContentLoading;
+using TeaFramework.API.Features.CustomLoading;
+using TeaFramework.API.Features.Events;
+using TeaFramework.API.Features.Logging;
 using TeaFramework.Content.ContentLoaders;
 using Terraria.ModLoader;
 

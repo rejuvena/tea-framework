@@ -17,4 +17,7 @@
       <HintPath>lib\Tomlet.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="API\Features" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
-using TeaFramework.API.ContentLoading;
-using TeaFramework.API.Events;
+using TeaFramework.API.Features.ContentLoading;
+using TeaFramework.API.Features.Events;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Content.ContentLoaders

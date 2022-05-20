@@ -1,14 +1,14 @@
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using TeaFramework.API.ContentLoading;
-using TeaFramework.API.Events;
-using TeaFramework.API.Logging;
-using TeaFramework.API.Patching;
-using TeaFramework.Impl.Events;
-using TeaFramework.Impl.Logging;
-using TeaFramework.API.CustomLoading;
-using TeaFramework.Impl.CustomLoading;
+using TeaFramework.API.Features.ContentLoading;
+using TeaFramework.API.Features.CustomLoading;
+using TeaFramework.API.Features.Events;
+using TeaFramework.API.Features.Logging;
+using TeaFramework.API.Features.Patching;
+using TeaFramework.Features.CustomLoading;
+using TeaFramework.Features.Events;
+using TeaFramework.Features.Logging;
 using Terraria;
 using Terraria.ModLoader;
 

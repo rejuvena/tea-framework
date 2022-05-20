@@ -1,4 +1,4 @@
-﻿using TeaFramework.API.Events;
+﻿using TeaFramework.API.Features.Events;
 
 namespace TeaExampleMod.Events
 {

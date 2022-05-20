@@ -1,5 +1,5 @@
 ﻿using System;
-using TeaFramework.Impl.Utility;
+using TeaFramework.Features.Utility;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Content.Wrappers

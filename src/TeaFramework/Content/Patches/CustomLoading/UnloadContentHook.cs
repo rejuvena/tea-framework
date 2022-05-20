@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using TeaFramework.API.CustomLoading;
-using TeaFramework.Impl.CustomLoading;
-using TeaFramework.Impl.Patching;
-using TeaFramework.Impl.Utility;
+using TeaFramework.API.Features.CustomLoading;
+using TeaFramework.Features.CustomLoading;
+using TeaFramework.Features.Patching;
+using TeaFramework.Features.Utility;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Content.Patches.CustomLoading
