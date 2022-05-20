@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Reflection;
 using MonoMod.Cil;
+using TeaFramework.API;
 using TeaFramework.API.Exceptions;
 using TeaFramework.API.Features.CustomLoading;
-using TeaFramework.Features.CustomLoading;
 using TeaFramework.Features.Patching;
 using TeaFramework.Features.Utility;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Content.Patches.CustomLoading
+namespace TeaFramework.Features.CustomLoading
 {
     internal class LoadModContentHook : Patch<ILContext.Manipulator>
     {

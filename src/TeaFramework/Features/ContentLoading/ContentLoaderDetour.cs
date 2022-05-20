@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TeaFramework.API;
 using TeaFramework.API.Exceptions;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.Features.Patching;
@@ -8,7 +9,7 @@ using TeaFramework.Features.Utility;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Content.Patches.ContentLoading
+namespace TeaFramework.Features.ContentLoading
 {
     public class ContentLoaderDetour : Patch<ContentLoaderDetour.AddContent>
     {

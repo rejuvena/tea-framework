@@ -4,10 +4,10 @@ using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
 using TeaFramework.API.Features.Logging;
-using TeaFramework.Content.ContentLoaders;
+using TeaFramework.Features.Events;
 using Terraria.ModLoader;
 
-namespace TeaFramework
+namespace TeaFramework.API
 {
     /// <summary>
     ///     Represents the core data stored in a Tea Framework mod.

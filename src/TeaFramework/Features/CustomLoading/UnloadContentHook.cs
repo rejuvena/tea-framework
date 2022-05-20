@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using TeaFramework.API;
 using TeaFramework.API.Features.CustomLoading;
-using TeaFramework.Features.CustomLoading;
 using TeaFramework.Features.Patching;
 using TeaFramework.Features.Utility;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Content.Patches.CustomLoading
+namespace TeaFramework.Features.CustomLoading
 {
     public class UnloadContentHook : Patch<UnloadContentHook.UnloadContent>
     {
