@@ -2,6 +2,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using TeaFramework.API;
+using TeaFramework.API.DependencyInjection;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
@@ -32,6 +33,8 @@ namespace TeaFramework
         #region ITeaMod Impl
 
         Mod ITeaMod.ModInstance => this;
+
+        public IApiServiceProvider ApiServiceProvider { get; } = new ApiServiceProvider();
 
         public ILogWrapper LogWrapper => new LogWrapper(Logger);
 

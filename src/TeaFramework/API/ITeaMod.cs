@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using log4net;
+using TeaFramework.API.DependencyInjection;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
@@ -18,6 +19,11 @@ namespace TeaFramework.API
         ///     The associated tModLoader <see cref="Mod"/>.
         /// </summary>
         Mod ModInstance { get; }
+
+        /// <summary>
+        ///     This Tea Framework Mod's service provider.
+        /// </summary>
+        IApiServiceProvider ApiServiceProvider { get; }
 
         /// <summary>
         ///     A wrapped <see cref="ILog"/> instance.
