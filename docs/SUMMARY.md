@@ -2,8 +2,10 @@
 
 * [Introduction](Introduction.md)
 * [Installation](installation/README.md)
-  * [tModLoader Mod Dependencies](installation/mod\_deps.md)
-  * [NuGet Package Dependency](installation/nuget\_package.md)
+  * [Referencing Tea Framework](installation/referencing-tea-framework/README.md)
+    * [Referencing With DLLs](installation/referencing-tea-framework/mod\_deps.md)
+    * [Referencing With NuGet](installation/referencing-tea-framework/nuget\_package.md)
+  * [Plugging In](installation/plugging-in.md)
 * [Features](features/README.md)
   * [Service Providers](features/service-providers.md)
   * [Load Steps](features/load-steps.md)

@@ -1,6 +1,6 @@
-# tModLoader Mod Dependencies
+# Referencing With DLLs
 
-Since Tea Framework is a mod for tModLoader, you can obtain the Tea Framework `.dll` file by extracting it in-game. `.dll` releases will always be provided on the [GitHub repository](https://github.com/rejuvena/tea-framework) whenever an update is released.
+Since Tea Framework is a mod for tModLoader, you can obtain the Tea Framework `.dll` file by extracting it in-game. Alternatively, `.dll` releases will always be provided on the [GitHub repository](https://github.com/rejuvena/tea-framework) whenever an update is released.
 
 Additionally, due to Tea Framework's mod status, the `.dll` you reference in your project is not what will be used at runtime. Instead, the actually mod assembly loaded by tModLoader will be used. This ensures Tea Framework is always up-to-date.
 
