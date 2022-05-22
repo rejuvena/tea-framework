@@ -12,7 +12,7 @@ Once you have done this, you have a few approaches for importing the assembly in
 
 ### tModLoader Mod Dependencies
 
-The first approach is obtaining the mod's DLL and referencing it in the `lib/` folder. You may find a full overview [here](../installation/mod\_deps.md).
+The first approach is obtaining the mod's DLL and referencing it in the `lib/` folder. You may find a full overview [here](../mod\_deps.md).
 
 ### NuGet Package Dependency
 
@@ -20,4 +20,4 @@ The first approach is obtaining the mod's DLL and referencing it in the `lib/` f
 This has not yet been tried, but will be investigated.
 {% endhint %}
 
-The second approach is through referencing a [NuGet package](../LINK-TODO/) containing the Tea Framework dependency. You may find a full overview [here](../installation/nuget\_package.md).
+The second approach is through referencing a [NuGet package](../LINK-TODO/) containing the Tea Framework dependency. You may find a full overview [here](../nuget\_package.md).

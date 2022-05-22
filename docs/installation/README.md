@@ -12,4 +12,4 @@ To learn how to reference Tea Framework in your project, see [here](referencing-
 
 ### Library Loading
 
-Tea Framework is _mostly_ pluggable, see how to utilize it here.
+Tea Framework is _mostly_ pluggable, see how to utilize it [here](plugging-in.md).
