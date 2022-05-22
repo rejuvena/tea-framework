@@ -7,21 +7,24 @@ using TeaFramework.API.Exceptions;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.Features.Patching;
 using TeaFramework.Features.Utility;
+using TeaFramework.Utilities.CWT.Data;
+using TeaFramework.Utilities.Extensions;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Features.CustomLoading
 {
-    internal class LoadModContentHook : Patch<ILContext.Manipulator>
+    [Autoload(false)]
+    public class LoadModContentHook : Patch<ILContext.Manipulator>
     {
         public override MethodInfo ModifiedMethod { get; } = typeof(ModContent).GetCachedMethod("LoadModContent");
 
         private static readonly MethodInfo _methodToMatch = typeof(Action<Mod>).GetCachedMethod("Invoke");
-        public override ILContext.Manipulator PatchMethod { get; } = il => {
+        public override ILContext.Manipulator PatchMethod => il => {
             ILCursor c = new(il);
 
             if (!c.TryGotoNext(MoveType.Before, x => x.MatchCallvirt(_methodToMatch)))
                 throw new TeaModLoadException(
-                    ModContent.GetInstance<TeaMod>()?.LogWrapper.LogOpCodeJumpFailure(
+                    this.LogOpCodeJumpFailure(
                         "Terraria.ModLoader.ModContent",
                         "LoadModContent",
                         "callvirt",
@@ -32,17 +35,28 @@ namespace TeaFramework.Features.CustomLoading
             c.Remove();
             c.EmitDelegate<Action<Action<Mod>, Mod>>((action, mod) => {
                 // Only call this part during the first time LoadModContent is called
-                bool? isLoading = (bool?)typeof(Mod).GetCachedField("loading").GetValue(mod);
-                if (isLoading.HasValue && !isLoading.Value)
+                // bool? isLoading = (bool?)typeof(Mod).GetCachedField("loading").GetValue(mod);
+                CwtModData modData = mod.GetDynamicField<Mod, CwtModData>("modData");
+
+                if (modData.HasDoneLoadingCycle)
                 {
                     action(mod);
                     return;
                 }
                 
+                modData.HasDoneLoadingCycle = true;
+                
                 if (mod is ITeaMod teaMod)
                 {
-                    teaMod.GetLoadSteps(out IList<ILoadStep> rawSteps);
-                    LoadStepCollection collection = new(rawSteps);
+                    teaMod.InstallApis();
+                    
+                    IList<ILoadStep>? loadSteps = null;
+                    teaMod.GetService<TeaFrameworkApi.LoadStepsProvider>()?.Invoke(out loadSteps);
+
+                    if (loadSteps is null)
+                        return;
+                    
+                    LoadStepCollection collection = new(loadSteps);
 
                     foreach (ILoadStep step in collection)
                         step.Load(teaMod);

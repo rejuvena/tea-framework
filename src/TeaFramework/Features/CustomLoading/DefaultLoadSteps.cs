@@ -6,8 +6,10 @@ using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
 using TeaFramework.API.Features.Patching;
 using TeaFramework.Features.Utility;
+using TeaFramework.Utilities.Extensions;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
 
 namespace TeaFramework.Features.CustomLoading
 {
@@ -16,19 +18,38 @@ namespace TeaFramework.Features.CustomLoading
     /// </summary>
     public static class DefaultLoadSteps
     {
-        public const float ContentInstanceRegisterWeight = 1f;
-        public const float LoadingTrueWeight = 2f;
-        public const float LoadMonoModHooksWeight = 3.5f;
-        public const float AutoloadConfigWeight = 3f;
-        public const float PrepareAssetsWeight = 4f;
-        public const float ClearEquipTexturesWeight = 5f;
-        public const float ClearContentWeight = 6f;
-        public const float AutoloadWeight = 7f;
-        public const float UnsubscribeEventsWeight = 8f;
-        public const float LoadWeight = 9f;
-        public const float OnModLoadWeight = 10f;
-        public const float LoadingFalseWeight = 11f;
+        public const float JitModWeight = 1f;
+        public const float ContentInstanceRegisterWeight = 2f;
+        public const float LoadingTrueWeight = 3f;
+        //public const float HandleServiceProviderWeight = 4f;
+        public const float LoadMonoModHooksWeight = 3f;
+        public const float AutoloadConfigWeight = 4f;
+        public const float PrepareAssetsWeight = 5f;
+        public const float ClearEquipTexturesWeight = 6f;
+        public const float ClearContentWeight = 7f;
+        public const float AutoloadWeight = 8f;
+        public const float UnsubscribeEventsWeight = 9f;
+        public const float LoadWeight = 10f;
+        public const float OnModLoadWeight = 11f;
+        public const float LoadingFalseWeight = 12f;
 
+        /// <summary>
+        ///     When loading: JITs the mod assembly. <br />
+        ///     When unloading: N/A.
+        /// </summary>
+        public static readonly ILoadStep JitMod = new LoadStep(
+            nameof(JitMod),
+            JitModWeight,
+            teaMod => {
+                if (!teaMod.ModInstance.Code.GetName().Name!.StartsWith("tModLoader"))
+                    AssemblyManager.JITAssemblies(
+                        AssemblyManager.GetModAssemblies(teaMod.ModInstance.Name),
+                        teaMod.ModInstance.PreJITFilter
+                    );
+            },
+            teaMod => { }
+        );
+        
         /// <summary>
         ///     When loading: registers the mod instance using <see cref="ContentInstance.Register"/>. <br />
         ///     When unloading: N/A.
@@ -50,6 +71,17 @@ namespace TeaFramework.Features.CustomLoading
             teaMod => Reflection<Mod>.InvokeFieldSetter("loading", teaMod, true),
             teaMod => { }
         );
+        
+        /*/// <summary>
+        ///     When loading: installs API services. <br />
+        ///     When unloading: uninstalls API services.
+        /// </summary>
+        public static readonly ILoadStep HandleServiceProvider = new LoadStep(
+            nameof(HandleServiceProvider),
+            HandleServiceProviderWeight,
+            teaMod => teaMod.InstallApis(),
+            teaMod => teaMod.UninstallApis()
+        );*/
 
         /// <summary>
         ///     When loading: requests native access to MonoMod. <br />
@@ -150,11 +182,16 @@ namespace TeaFramework.Features.CustomLoading
             teaMod => { },
             teaMod => {
                 Main.QueueMainThreadAction(() => {
-                    IEventListener[] listeners = teaMod.EventBus.Listeners.Values.SelectMany(listeners => listeners)
+                    IEventBus? bus = teaMod.GetService<IEventBus>();
+
+                    if (bus is null)
+                        return;
+                    
+                    IEventListener[] listeners = bus.Listeners.Values.SelectMany(listeners => listeners)
                         .ToArray();
 
                     foreach (IEventListener listener in listeners)
-                        teaMod.EventBus.Unsubscribe(listener);
+                        bus.Unsubscribe(listener);
                 });
             }
         );
@@ -197,9 +234,10 @@ namespace TeaFramework.Features.CustomLoading
         /// <summary>
         ///     The default steps used by Tea mods.
         /// </summary>
-        public static List<ILoadStep> GetDefaultSteps() => new() {
+        public static List<ILoadStep> GetDefaultLoadSteps() => new() {
             ContentInstanceRegister,
             LoadingTrue,
+            //HandleServiceProvider,
             LoadMonoModHooks,
             AutoloadConfig,
             PrepareAssets,

@@ -5,6 +5,8 @@
     /// </summary>
     public interface IApiServiceProvider : ISingletonServiceProvider
     {
+        ITeaMod TeaMod { get; }
+        
         void InstallApi<T>(T apiService) where T : IApiService;
 
         void UninstallApi<T>() where T : IApiService;

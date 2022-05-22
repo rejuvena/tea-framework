@@ -9,13 +9,20 @@ namespace TeaFramework.API.DependencyInjection
         protected readonly Dictionary<Type, object?> Singletons = new();
         protected readonly Dictionary<Type, IApiService> ApiServices = new();
 
-        public T? GetSingletonService<T>() => (T?)(Singletons.ContainsKey(typeof(T)) ? Singletons[typeof(T)] : null);
+        public ITeaMod TeaMod { get; }
+        
+        public ApiServiceProvider(ITeaMod teaMod)
+        {
+            TeaMod = teaMod;
+        }
 
-        public object? GetSingletonService(Type type) => Singletons.ContainsKey(type) ? Singletons[type] : null;
+        public T? GetServiceSingleton<T>() => (T?)(Singletons.ContainsKey(typeof(T)) ? Singletons[typeof(T)] : null);
 
-        public void SetSingletonService<T>(T? singleton) => SetSingletonService(typeof(T), singleton);
+        public object? GetServiceSingleton(Type type) => Singletons.ContainsKey(type) ? Singletons[type] : null;
 
-        public void SetSingletonService(Type type, object? singleton)
+        public void SetServiceSingleton<T>(T? singleton) => SetServiceSingleton(typeof(T), singleton);
+
+        public void SetServiceSingleton(Type type, object? singleton)
         {
             if (singleton is null)
             {

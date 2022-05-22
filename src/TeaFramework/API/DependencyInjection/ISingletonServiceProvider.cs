@@ -7,12 +7,12 @@ namespace TeaFramework.API.DependencyInjection
     /// </summary>
     public interface ISingletonServiceProvider
     {
-        T? GetSingletonService<T>();
+        T? GetServiceSingleton<T>();
 
-        object? GetSingletonService(Type type);
+        object? GetServiceSingleton(Type type);
 
-        void SetSingletonService<T>(T? singleton);
+        void SetServiceSingleton<T>(T? singleton);
 
-        void SetSingletonService(Type type, object? singleton);
+        void SetServiceSingleton(Type type, object? singleton);
     }
 }

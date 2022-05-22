@@ -11,7 +11,7 @@ namespace TeaFramework.API.Features.Patching
         /// <summary>
         ///     The mod that owns this patch.
         /// </summary>
-        Mod? Mod { get; }
+        Mod Mod { get; }
 
         /// <summary>
         ///     The method being patched.

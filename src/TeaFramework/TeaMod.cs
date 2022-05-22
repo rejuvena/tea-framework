@@ -6,11 +6,9 @@ using TeaFramework.API.DependencyInjection;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
-using TeaFramework.API.Features.Logging;
 using TeaFramework.API.Features.Patching;
 using TeaFramework.Features.CustomLoading;
-using TeaFramework.Features.Events;
-using TeaFramework.Features.Logging;
+using TeaFramework.Utilities.Extensions;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -28,19 +26,39 @@ namespace TeaFramework
         {
             // Privately request native access to perform our early bird edits.
             ExecutePrivately(MonoModHooks.RequestNativeAccess);
+            ServiceProvider = new ApiServiceProvider(this);
+            // Our APIs aren't loaded by our hooks, normally.
+            ExecutePrivately(InstallApis);
+            ExecutePrivately(() => {
+                IPatch patch = new LoadModContentHook();
+                patch.Load(this);
+                // patch.Apply(this);
+            });
         }
 
         #region ITeaMod Impl
 
         Mod ITeaMod.ModInstance => this;
 
-        public IApiServiceProvider ApiServiceProvider { get; } = new ApiServiceProvider();
+        public IApiServiceProvider ServiceProvider { get; }
+        
+        public virtual void InstallApis()
+        {
+            ServiceProvider.InstallApi<TeaFrameworkApi>();
+            ServiceProvider.SetServiceSingleton<TeaFrameworkApi.ContentLoadersProvider>(GetContentLoaders);
+            ServiceProvider.SetServiceSingleton<TeaFrameworkApi.LoadStepsProvider>(GetLoadSteps);
+        }
 
-        public ILogWrapper LogWrapper => new LogWrapper(Logger);
+        public virtual void UninstallApis()
+        {
+            ServiceProvider.UninstallApi<TeaFrameworkApi>();
+        }
 
-        public IEnumerable<IContentLoader> ContentLoaders { get; } = ITeaMod.GetDefaultContentLoaders();
+        protected virtual void GetContentLoaders(out IEnumerable<IContentLoader> loaders) =>
+            loaders = TeaFrameworkApi.GetContentLoaders();
 
-        public IEventBus EventBus { get; } = new EventBus();
+        protected virtual void GetLoadSteps(out IList<ILoadStep> steps) =>
+            steps = TeaFrameworkApi.GetLoadSteps();
 
         #endregion
 
@@ -48,18 +66,16 @@ namespace TeaFramework
 
         public List<IMonoModPatch> Patches { get; } = new();
 
-        /// <summary>
-        ///     Set up the list of steps that should be taken to load your mod.
-        /// </summary>
-        /// <param name="steps">The <see cref="IList{T}"/> of <see cref="ILoadStep"/>s you should add and modify.</param>
-        public virtual void GetLoadSteps(out IList<ILoadStep> steps) => steps = DefaultLoadSteps.GetDefaultSteps();
-
         #endregion
 
         #region Mod Hooks
 
-        // Made sealed to facilitate the use of load hooks.
-        public sealed override void Load() { }
+        // Make Load and Unload sealed to facilitate the use of load hooks.
+        public sealed override void Load()
+        {
+            // Even though this shouldn't matter much, better safe than sorry.
+            // ExecutePrivately(InstallApis);
+        }
 
         public sealed override void Unload()
         {
@@ -68,14 +84,21 @@ namespace TeaFramework
             // Re-create the default unload steps here since they're removed once TeaMod.Unload is ran for the base instance.
             ExecutePrivately(() => {
                 Main.QueueMainThreadAction(() => {
-                    IEventListener[] listeners = EventBus.Listeners.Values.SelectMany(listeners => listeners)
-                        .ToArray();
+                    IEventBus? bus = this.GetService<IEventBus>();
 
-                    foreach (IEventListener listener in listeners)
-                        EventBus.Unsubscribe(listener);
+                    if (bus is not null)
+                    {
+                        Dictionary<Type, List<IEventListener>>.ValueCollection listenerValues = bus.Listeners.Values;
+                        IEventListener[] listeners = listenerValues.SelectMany(listeners => listeners).ToArray();
+
+                        foreach (IEventListener listener in listeners)
+                            bus.Unsubscribe(listener);
+                    }
 
                     foreach (IMonoModPatch patch in Patches)
                         patch.Unapply();
+                    
+                    UninstallApis();
                 });
             });
         }

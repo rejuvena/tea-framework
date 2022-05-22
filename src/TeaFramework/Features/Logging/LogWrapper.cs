@@ -1,15 +1,18 @@
 ﻿using log4net;
 using TeaFramework.API.Features.Logging;
+using Terraria.ModLoader;
 
 namespace TeaFramework.Features.Logging
 {
     public readonly struct LogWrapper : ILogWrapper
     {
-        public ILog Logger { get; }
+        private Mod Mod { get; }
 
-        public LogWrapper(ILog logger)
+        public ILog Logger => Mod.Logger;
+
+        public LogWrapper(Mod mod)
         {
-            Logger = logger;
+            Mod = mod;
         }
 
         public string LogPatchFailure(string type, string message)

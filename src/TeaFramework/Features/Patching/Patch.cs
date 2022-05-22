@@ -15,7 +15,7 @@ namespace TeaFramework.Features.Patching
     /// </remarks>
     public abstract class Patch<T> : IPatch where T : Delegate
     {
-        public Mod? Mod { get; protected set; }
+        public Mod Mod { get; protected set; } = null!;
 
         public abstract MethodInfo ModifiedMethod { get; }
 

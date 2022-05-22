@@ -4,6 +4,7 @@ using TeaFramework.API;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.Features.Patching;
 using TeaFramework.Features.Utility;
+using TeaFramework.Utilities.Extensions;
 using Terraria.ModLoader;
 
 namespace TeaFramework.Features.CustomLoading
@@ -23,8 +24,13 @@ namespace TeaFramework.Features.CustomLoading
                 return;
             }
             
-            teaMod.GetLoadSteps(out IList<ILoadStep> rawSteps);
-            LoadStepCollection collection = new(rawSteps);
+            IList<ILoadStep>? loadSteps = null;
+            teaMod.GetService<TeaFrameworkApi.LoadStepsProvider>()?.Invoke(out loadSteps);
+
+            if (loadSteps is null)
+                return;
+            
+            LoadStepCollection collection = new(loadSteps);
             
             foreach (ILoadStep step in collection.GetReversed())
                 step.Unload(teaMod);

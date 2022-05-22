@@ -27,12 +27,12 @@ namespace TeaFramework.Tests
 
             public void Install(IApiServiceProvider apiServiceProvider)
             {
-                apiServiceProvider.SetSingletonService<IQuizzical>(new Quizzical());
+                apiServiceProvider.SetServiceSingleton<IQuizzical>(new Quizzical());
             }
 
             public void Uninstall(IApiServiceProvider apiServiceProvider)
             {
-                apiServiceProvider.SetSingletonService<IQuizzical>(null);
+                apiServiceProvider.SetServiceSingleton<IQuizzical>(null);
             }
         }
         
@@ -47,21 +47,21 @@ namespace TeaFramework.Tests
 
             public void Install(IApiServiceProvider apiServiceProvider)
             {
-                apiServiceProvider.SetSingletonService<ITesticle>(new Testicle());
+                apiServiceProvider.SetServiceSingleton<ITesticle>(new Testicle());
             }
 
             public void Uninstall(IApiServiceProvider apiServiceProvider)
             {
-                apiServiceProvider.SetSingletonService<ITesticle>(null);
+                apiServiceProvider.SetServiceSingleton<ITesticle>(null);
             }
         }
-        
+
         [Test]
         public static void TestBasicApiProvider()
         {
             // Test objective: Ensure APIs can install and uninstall possible.
-            
-            IApiServiceProvider provider = new ApiServiceProvider();
+
+            IApiServiceProvider provider = new ApiServiceProvider(null!);
             TestApiServiceOne one = new();
             TestApiServiceTwo two = new();
             
@@ -74,8 +74,8 @@ namespace TeaFramework.Tests
             if (provider.GetApiService<TestApiServiceTwo>() is null)
                 throw new Exception("TestApiServiceTwo not installed.");
 
-            IQuizzical? quizzical = provider.GetSingletonService<IQuizzical>();
-            ITesticle? testicle = provider.GetSingletonService<ITesticle>();
+            IQuizzical? quizzical = provider.GetServiceSingleton<IQuizzical>();
+            ITesticle? testicle = provider.GetServiceSingleton<ITesticle>();
 
             if (quizzical is null)
                 throw new Exception("IQuizzical singleton was not present.");
@@ -89,8 +89,8 @@ namespace TeaFramework.Tests
             provider.UninstallApi<TestApiServiceOne>();
             provider.UninstallApi<TestApiServiceTwo>();
             
-            quizzical = provider.GetSingletonService<IQuizzical>();
-            testicle = provider.GetSingletonService<ITesticle>();
+            quizzical = provider.GetServiceSingleton<IQuizzical>();
+            testicle = provider.GetServiceSingleton<ITesticle>();
             
             if (quizzical is not null)
                 throw new Exception("IQuizzical singleton was present.");

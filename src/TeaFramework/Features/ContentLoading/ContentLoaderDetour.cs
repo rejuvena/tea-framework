@@ -6,6 +6,7 @@ using TeaFramework.API.Exceptions;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.Features.Patching;
 using TeaFramework.Features.Utility;
+using TeaFramework.Utilities.Extensions;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -26,8 +27,17 @@ namespace TeaFramework.Features.ContentLoading
                 orig(self, instance);
                 return;
             }
-            
-            IContentLoader? contentLoader = teaMod.ContentLoaders.FirstOrDefault(x => x.AppliesTo(instance));
+
+            IEnumerable<IContentLoader>? contentLoaders = null;
+            teaMod.GetService<TeaFrameworkApi.ContentLoadersProvider>()?.Invoke(out contentLoaders);
+
+            if (contentLoaders is null)
+            {
+                orig(self, instance);
+                return;
+            }
+
+            IContentLoader? contentLoader = contentLoaders.FirstOrDefault(x => x.AppliesTo(instance));
 
             if (contentLoader is null)
             {
