@@ -23,8 +23,9 @@ Outlined below is a list of currently-implemented features, as well as our goals
   - This is a sort of "wrapper" around [MonoMod](https://github.com/MonoMod/MonoMod), which is already supplied by tModLoader.
   - Patches are delegate-based and use autoloading for convenience.
   - Isolated to an `IPatchRepository`, mostly decoupling it from `Terraria.ModLoader.Mod`.
-- **(PLANNED)** A redone loading system, working with steps (represented as `ILoadStep`).
-  - Eliminates `Terraria.ModLoader.Mod.Load()`.
+- A redone loading system, working with steps (represented as `ILoadStep`).
+  - Eliminates `Terraria.ModLoader.Mod.Load()` and `Terraria.ModLoader.Mod.Unload()` in `TeaMod`, but the default load steps still load it.
+    - If you really want to, you can still use these in custom implementations of `ITeaMod`.
 
 ## Documentation
 Tea has summaries for most important types and members. You can view elaboratory articles and guides [here](https://tomat.gitbook.io/tea-framework/).
