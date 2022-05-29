@@ -17,13 +17,15 @@ namespace TeaExampleMod.Patches
         public override MethodInfo ModifiedMethod { get; } = typeof(Main).GetCachedMethod("DrawVersionNumber");
 
         // Create a delegate for applying our edit.
-        public override ILContext.Manipulator PatchMethod { get; } = il => {
+        protected override ILContext.Manipulator PatchMethod { get; } = il =>
+        {
             ILCursor c = new(il);
 
             c.GotoNext(MoveType.After, x => x.MatchLdsfld<Main>("versionNumber"));
-            c.EmitDelegate<Func<string, string>>(vers => {
+            c.EmitDelegate<Func<string, string>>(vers =>
+            {
                 VersionDrawEvent @event = new() {VersionText = vers};
-                TeaEventDispatcher.DispatchEvent<VersionDrawEvent>(@event);
+                TeaEventDispatcher.DispatchEvent(@event);
                 return @event.VersionText;
             });
         };

@@ -9,7 +9,7 @@
         ///     This API service's unique name.
         /// </summary>
         string Name { get; }
-        
+
         /// <summary>
         ///     Installs this service to an API service provider.
         /// </summary>

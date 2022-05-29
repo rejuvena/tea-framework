@@ -6,14 +6,12 @@ namespace TeaExampleMod.Listeners
 {
     public class ExampleListener : IEventListener<VersionDrawEvent>
     {
-        void ILoadable.Load(Mod mod)
-        {
-        }
+        void ILoadable.Load(Mod mod) { }
 
-        void ILoadable.Unload()
-        {
-        }
+        void ILoadable.Unload() { }
 
-        public void HandleEvent(VersionDrawEvent @event) => @event.VersionText += ": Hello from Tea Example Mod!";
+        public void HandleEvent(VersionDrawEvent @event) {
+            @event.VersionText += ": Hello from Tea Example Mod!";
+        }
     }
 }

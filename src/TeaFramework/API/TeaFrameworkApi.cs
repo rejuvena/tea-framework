@@ -10,16 +10,18 @@ using TeaFramework.Features.Logging;
 
 namespace TeaFramework.API
 {
+    /// <summary>
+    ///     The Tea Framework API service.
+    /// </summary>
     public class TeaFrameworkApi : IApiService
     {
         public delegate void ContentLoadersProvider(out IEnumerable<IContentLoader> loaders);
 
         public delegate void LoadStepsProvider(out IList<ILoadStep> steps);
-        
+
         public string Name => nameof(TeaFrameworkApi);
-        
-        public void Install(IApiServiceProvider apiServiceProvider)
-        {
+
+        public void Install(IApiServiceProvider apiServiceProvider) {
             apiServiceProvider.SetServiceSingleton<ILogWrapper>(new LogWrapper(apiServiceProvider.TeaMod.ModInstance));
             apiServiceProvider.SetServiceSingleton<IEventBus>(new EventBus());
             apiServiceProvider.SetServiceSingleton<ContentLoadersProvider>(
@@ -30,24 +32,26 @@ namespace TeaFramework.API
             );
         }
 
-        public void Uninstall(IApiServiceProvider apiServiceProvider)
-        {
+        public void Uninstall(IApiServiceProvider apiServiceProvider) {
             apiServiceProvider.SetServiceSingleton<ILogWrapper>(null);
             apiServiceProvider.SetServiceSingleton<IEventBus>(null);
             apiServiceProvider.SetServiceSingleton<ContentLoadersProvider>(null);
             apiServiceProvider.SetServiceSingleton<LoadStepsProvider>(null);
         }
-        
+
         /// <summary>
         ///     Returns a collection of default content loaders.
         /// </summary>
-        public static IEnumerable<IContentLoader> GetContentLoaders() =>
-            new IContentLoader[] {new EventListenerLoader()};
+        public static IEnumerable<IContentLoader> GetContentLoaders() {
+            return new IContentLoader[] {new EventListenerLoader()};
+        }
 
         /// <summary>
         ///     Returns a collection of default load steps.
         /// </summary>
         /// <returns></returns>
-        public static IList<ILoadStep> GetLoadSteps() => DefaultLoadSteps.GetDefaultLoadSteps();
+        public static IList<ILoadStep> GetLoadSteps() {
+            return DefaultLoadSteps.GetDefaultLoadSteps();
+        }
     }
 }

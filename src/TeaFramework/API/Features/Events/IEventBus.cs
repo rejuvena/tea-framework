@@ -8,12 +8,29 @@ namespace TeaFramework.API.Features.Events
     /// </summary>
     public interface IEventBus
     {
+        /// <summary>
+        ///     The dictionary of event types pointing to all subscribed listeners.
+        /// </summary>
         Dictionary<Type, List<IEventListener>> Listeners { get; }
-        
+
+        /// <summary>
+        ///     Subscribes a listener to this event bus, handles event type subscription.
+        /// </summary>
+        /// <param name="listener"></param>
         void Subscribe(IEventListener listener);
 
+        /// <summary>
+        ///     Unsubscribes a listener from this event bus.
+        /// </summary>
+        /// <param name="listener"></param>
         void Unsubscribe(IEventListener listener);
-        
-        void Post<TEvent>(TEvent @event) where TEvent : TeaEvent;
+
+        /// <summary>
+        ///     Posts an event so that all event listeners may receive the event.
+        /// </summary>
+        /// <param name="event">The event instance.</param>
+        /// <typeparam name="TEvent">The event type that event listeners should handle.</typeparam>
+        void Post<TEvent>(TEvent @event)
+            where TEvent : TeaEvent;
     }
 }

@@ -10,22 +10,21 @@ namespace TeaFramework.Features.Logging
 
         public ILog Logger => Mod.Logger;
 
-        public LogWrapper(Mod mod)
-        {
+        public LogWrapper(Mod mod) {
             Mod = mod;
         }
 
-        public string LogPatchFailure(string type, string message)
-        {
+        public string LogPatchFailure(string type, string message) {
             message = $"PATCH FAILURE {type} @ " + message;
             Logger.Error(message);
             return message;
         }
 
-        public string LogOpCodeJumpFailure(string typeName, string typeMethod, string opcode, string? value) =>
-            LogPatchFailure(
+        public string LogOpCodeJumpFailure(string typeName, string typeMethod, string opcode, string? value) {
+            return LogPatchFailure(
                 "OpCode Jump Failure",
                 $"{typeName}::{typeMethod} -> {opcode}{(value is not null ? $" {value}" : "")}"
             );
+        }
     }
 }

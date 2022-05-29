@@ -9,26 +9,29 @@ namespace TeaFramework.Features.Events
 {
     public class EventListenerLoader : IContentLoader
     {
-        public bool AppliesTo(ILoadable loadable) => loadable is IEventListener;
+        public bool AppliesTo(ILoadable loadable) {
+            return loadable is IEventListener;
+        }
 
-        public bool OverrideIsLoadingEnabled(IContentLoader.LoadContext context, bool isLoadingEnabled) =>
-            isLoadingEnabled;
+        public bool OverrideIsLoadingEnabled(IContentLoader.LoadContext context, bool isLoadingEnabled) {
+            return isLoadingEnabled;
+        }
 
-        public void LoadLoadable(IContentLoader.LoadContext context, Action<ILoadable, Mod> loadLoadable)
-        {
+        public void LoadLoadable(IContentLoader.LoadContext context, Action<ILoadable, Mod> loadLoadable) {
             loadLoadable(context.Loadable, context.Mod);
 
-            if (context.Mod is not ITeaMod teaMod)
-                return;
+            if (context.Mod is not ITeaMod teaMod) return;
 
             IEventBus? bus = teaMod.GetService<IEventBus>();
             bus?.Subscribe((IEventListener) context.Loadable);
         }
 
-        public void AddContent(IContentLoader.LoadContext context, Action<ILoadable> addContent) =>
+        public void AddContent(IContentLoader.LoadContext context, Action<ILoadable> addContent) {
             addContent(context.Loadable);
+        }
 
-        public void RegisterInstance(IContentLoader.LoadContext context, Action<ILoadable> registerInstance) =>
+        public void RegisterInstance(IContentLoader.LoadContext context, Action<ILoadable> registerInstance) {
             registerInstance(context.Loadable);
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using MonoMod.Cil;
-using TeaFramework.API.Features.Patching;
+using TeaFramework.API.Utility;
 using TeaFramework.Features.Patching;
 using TeaFramework.Features.Utility;
 using Terraria;
@@ -13,7 +13,8 @@ namespace TeaExampleMod.Patches
     {
         public override MethodInfo ModifiedMethod { get; } = typeof(TitleLinkButton).GetCachedMethod("DrawTooltip");
 
-        public override ILContext.Manipulator PatchMethod { get; } = il => {
+        protected override ILContext.Manipulator PatchMethod { get; } = il =>
+        {
             ILCursor c = new(il);
             ILMixin m = new(c);
 

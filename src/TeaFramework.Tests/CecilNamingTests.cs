@@ -10,8 +10,7 @@ namespace TeaFramework.Tests
         public class NestedInstanceClass
         {
             public class InceptionInstanceClass
-            {
-            }
+            { }
         }
     }
 
@@ -24,29 +23,28 @@ namespace TeaFramework.Tests
 
         public static int TestProperty2 { private get; set; }
 
-        public static int TestMethod1(int a)
-        {
+        public static int TestMethod1(int a) {
             return -1;
         }
 
-        public static void TestMethod2(bool a, __arglist)
-        {
-        }
+        public static void TestMethod2(bool a, __arglist) { }
     }
 
     public static class CecilNamingTests
     {
         [Test]
-        public static void PrintTest()
-        {
-            static FieldInfo GetField(string name) =>
-                typeof(TestClass).GetField(name, Reflection.UniversalFlags)!;
+        public static void PrintTest() {
+            static FieldInfo GetField(string name) {
+                return typeof(TestClass).GetField(name, Reflection.UniversalFlags)!;
+            }
 
-            static PropertyInfo GetProperty(string name) =>
-                typeof(TestClass).GetProperty(name, Reflection.UniversalFlags)!;
+            static PropertyInfo GetProperty(string name) {
+                return typeof(TestClass).GetProperty(name, Reflection.UniversalFlags)!;
+            }
 
-            static MethodInfo GetMethod(string name) =>
-                typeof(TestClass).GetMethod(name, Reflection.UniversalFlags)!;
+            static MethodInfo GetMethod(string name) {
+                return typeof(TestClass).GetMethod(name, Reflection.UniversalFlags)!;
+            }
 
             Console.WriteLine(Cecil.GetFullName(GetField(nameof(TestClass.TestField1))));
             Console.WriteLine(Cecil.GetFullName(GetField(nameof(TestClass.TestField2))));

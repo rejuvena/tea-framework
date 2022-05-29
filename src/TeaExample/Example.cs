@@ -3,6 +3,5 @@
 namespace TeaExampleMod
 {
     public class Example : TeaMod
-    {
-    }
+    { }
 }

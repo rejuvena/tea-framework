@@ -23,8 +23,7 @@ namespace TeaFramework.API.Features.Patching
         /// </summary>
         public readonly Hook PatchHook;
 
-        public DetourPatch(MethodInfo baseMethod, MethodInfo patchMethod, IPatch patch)
-        {
+        public DetourPatch(MethodInfo baseMethod, MethodInfo patchMethod, IPatch patch) {
             BaseMethod = baseMethod;
             PatchMethod = patchMethod;
 
@@ -34,15 +33,15 @@ namespace TeaFramework.API.Features.Patching
         /// <summary>
         ///     Applies the method detour.
         /// </summary>
-        public void Apply() => PatchHook.Apply();
+        public void Apply() {
+            PatchHook.Apply();
+        }
 
         /// <summary>
         ///     Unapplies the method detour.
         /// </summary>
-        public void Unapply()
-        {
-            if (PatchHook.IsApplied) 
-                PatchHook.Undo();
+        public void Unapply() {
+            if (PatchHook.IsApplied) PatchHook.Undo();
         }
     }
 }

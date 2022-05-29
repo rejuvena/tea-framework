@@ -17,23 +17,21 @@ namespace TeaFramework.Features.CustomLoading
 
         public override MethodInfo ModifiedMethod { get; } = typeof(Mod).GetCachedMethod("UnloadContent");
 
-        public override UnloadContent PatchMethod { get; } = (orig, self) => {
-            if (self is not ITeaMod teaMod)
-            {
+        protected override UnloadContent PatchMethod { get; } = (orig, self) =>
+        {
+            if (self is not ITeaMod teaMod) {
                 orig(self);
                 return;
             }
-            
+
             IList<ILoadStep>? loadSteps = null;
             teaMod.GetService<TeaFrameworkApi.LoadStepsProvider>()?.Invoke(out loadSteps);
 
-            if (loadSteps is null)
-                return;
-            
+            if (loadSteps is null) return;
+
             LoadStepCollection collection = new(loadSteps);
-            
-            foreach (ILoadStep step in collection.GetReversed())
-                step.Unload(teaMod);
+
+            foreach (ILoadStep step in collection.GetReversed()) step.Unload(teaMod);
         };
     }
 }

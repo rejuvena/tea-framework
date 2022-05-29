@@ -21,12 +21,11 @@ namespace TeaFramework.API.Features.Patching
         public readonly ILContext.Manipulator PatchMethod;
 
         /// <summary>
-        ///     The resulting <see cref="ILContext.Manipulator"/> delegate.
+        ///     The resulting <see cref="ILContext.Manipulator" /> delegate.
         /// </summary>
         public readonly Delegate PatchDelegate;
 
-        public ILPatch(MethodInfo baseMethod, ILContext.Manipulator patchMethod)
-        {
+        public ILPatch(MethodInfo baseMethod, ILContext.Manipulator patchMethod) {
             BaseMethod = baseMethod;
             PatchMethod = patchMethod;
 
@@ -36,11 +35,15 @@ namespace TeaFramework.API.Features.Patching
         /// <summary>
         ///     Applies the IL edit.
         /// </summary>
-        public void Apply() => HookEndpointManager.Modify(BaseMethod, PatchDelegate);
+        public void Apply() {
+            HookEndpointManager.Modify(BaseMethod, PatchDelegate);
+        }
 
         /// <summary>
         ///     Unapplies the IL edit.
         /// </summary>
-        public void Unapply() => HookEndpointManager.Unmodify(BaseMethod, PatchDelegate);
+        public void Unapply() {
+            HookEndpointManager.Unmodify(BaseMethod, PatchDelegate);
+        }
     }
 }

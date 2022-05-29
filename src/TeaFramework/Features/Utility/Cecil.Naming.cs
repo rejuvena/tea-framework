@@ -6,27 +6,25 @@ namespace TeaFramework.Features.Utility
 {
     partial class Cecil
     {
-        public static string GetMemberFullName(object obj)
-        {
-            static string Combine(string? declaringName, string name)
-            {
-                if (declaringName is null)
-                    return name;
+        public static string GetMemberFullName(object obj) {
+            static string Combine(string? declaringName, string name) {
+                if (declaringName is null) return name;
 
                 return declaringName + "::" + name;
             }
 
-            return obj switch {
+            return obj switch
+            {
                 MemberInfo memberInfo => Combine(memberInfo.DeclaringType?.FullName, memberInfo.Name),
                 _ => $"Object of type \"{obj}\" does not derive from \"{typeof(MemberInfo).FullName}\"!"
             };
         }
 
-        public static string GetFullName(object obj)
-        {
+        public static string GetFullName(object obj) {
             string memberFullName = GetMemberFullName(obj);
 
-            return obj switch {
+            return obj switch
+            {
                 EventInfo eventInfo => eventInfo.EventHandlerType!.FullName + " " + memberFullName,
                 MethodInfo methodInfo => GetMethodName(methodInfo, memberFullName),
                 FieldInfo fieldInfo => fieldInfo.DeclaringType!.FullName + " " + memberFullName,
@@ -36,12 +34,11 @@ namespace TeaFramework.Features.Utility
             };
         }
 
-        public static string GetMethodName(MethodInfo methodInfo, string memberFullName)
-        {
+        public static string GetMethodName(MethodInfo methodInfo, string memberFullName) {
             StringBuilder builder = new StringBuilder()
-                .Append(methodInfo.ReturnType.FullName)
-                .Append(' ')
-                .Append(memberFullName);
+                                   .Append(methodInfo.ReturnType.FullName)
+                                   .Append(' ')
+                                   .Append(memberFullName);
 
             bool varArgs = (methodInfo.CallingConvention & CallingConventions.VarArgs) != 0;
             ParameterInfo[] parameters = methodInfo.GetParameters();
@@ -49,22 +46,16 @@ namespace TeaFramework.Features.Utility
             builder.Append('(');
 
             if (parameters.Length != 0)
-            {
-                for (int i = 0; i < parameters.Length; i++)
-                {
+                for (int i = 0; i < parameters.Length; i++) {
                     ParameterInfo param = parameters[i];
 
-                    if (i > 0)
-                        builder.Append(',');
+                    if (i > 0) builder.Append(',');
 
                     builder.Append(param.ParameterType.FullName);
                 }
-            }
 
-            if (varArgs)
-            {
-                if (parameters.Length != 0)
-                    builder.Append(',');
+            if (varArgs) {
+                if (parameters.Length != 0) builder.Append(',');
 
                 builder.Append("...");
             }
@@ -74,44 +65,36 @@ namespace TeaFramework.Features.Utility
             return builder.ToString();
         }
 
-        public static string GetPropertyName(PropertyInfo propertyInfo, string memberFullName)
-        {
+        public static string GetPropertyName(PropertyInfo propertyInfo, string memberFullName) {
             StringBuilder builder = new();
 
             builder.Append(propertyInfo.PropertyType.Name)
-                .Append(' ')
-                .Append(memberFullName)
-                .Append('(');
+                   .Append(' ')
+                   .Append(memberFullName)
+                   .Append('(');
 
             ParameterInfo[]? parameters = propertyInfo.GetMethod?.GetParameters();
 
             if (parameters is not null && parameters.Length != 0)
-            {
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    if (i > 0)
-                        builder.Append(',');
+                for (int i = 0; i < parameters.Length; i++) {
+                    if (i > 0) builder.Append(',');
 
                     builder.Append(parameters[i].ParameterType.FullName);
                 }
-            }
 
             builder.Append(')');
 
             return builder.ToString();
         }
 
-        public static string GetTypeName(Type? type)
-        {
+        public static string GetTypeName(Type? type) {
             // Not consistent w/ Mono.Cecil.
-            if (type is null)
-                return "<null type>";
+            if (type is null) return "<null type>";
 
             // if nested: use shorthand name, else: use qualified name. if no qualified name, use "<unnamed>"
             string fullName = type.IsNested ? type.Name : type.FullName ?? "<unnamed>";
 
-            if (type.IsNested)
-                fullName = GetTypeName(type.DeclaringType!) + '/' + fullName;
+            if (type.IsNested) fullName = GetTypeName(type.DeclaringType!) + '/' + fullName;
 
             return fullName;
         }
