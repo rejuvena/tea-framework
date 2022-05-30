@@ -1,5 +1,6 @@
-Find out more at: https://github.com/Rejuvena/TeaFramework
-
-Tea Framework is an extensive library mod for other mods to use, providing numerous utilities.
+Tea Framework is a progressive modding framework and library for tModLoader.
 
 If you're a user, you don't need to worry; this mod should be installed and enabled only when using mods that require it.
+If you're a modder, check us out! We provide various powerful APIs and a framework for further library development.
+
+Find out more at: https://github.com/rejuvena/tea-framework

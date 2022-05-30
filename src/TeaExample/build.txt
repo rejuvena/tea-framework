@@ -1,6 +1,6 @@
 displayName = Tea Example Mod
 author = Tomat
-version = 0.0.0.1
+version = 1.0.0
 buildIgnore = *.csproj, *.sln, *.user, obj\*, bin\*, .vs\*, .git\*, .idea\*
 modReferences = TeaFramework
 hideCode = false

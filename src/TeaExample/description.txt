@@ -1,1 +1,5 @@
 Example usage of Tea Framework.
+
+This is for developers.
+
+Find out more at: https://github.com/rejuvena/tea-framework
