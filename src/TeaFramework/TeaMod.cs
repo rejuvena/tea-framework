@@ -88,6 +88,16 @@ namespace TeaFramework
         public sealed override void Load() {
             // Even though this shouldn't matter much, better safe than sorry.
             // ExecutePrivately(InstallApis);
+
+            if (!ExecutePrivately(() =>
+                {
+                    Logger.Info($"tModLoader loaded with Tea Framework v{Version}"
+                                + "Get support on Discord @ discord.gg/tomat"
+                                + "Report issues on GitHub @ https://github.com/rejuvena/tea-framework"
+                    );
+                }))
+                Logger.Info($"Loaded mod \"{DisplayName}\" (\"{Name}\") under Tea Framework."
+                            + "To anyone attempting to offer support: be aware of external errors and other Tea Framework nuances.");
         }
 
         public sealed override void Unload() {

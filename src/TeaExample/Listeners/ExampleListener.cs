@@ -1,5 +1,6 @@
 ﻿using TeaExampleMod.Events;
 using TeaFramework.API.Features.Events;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace TeaExampleMod.Listeners
@@ -11,7 +12,9 @@ namespace TeaExampleMod.Listeners
         void ILoadable.Unload() { }
 
         public void HandleEvent(VersionDrawEvent @event) {
-            @event.VersionText += ": Hello from Tea Example Mod!";
+            string text = Language.GetTextValue("Mods.TeaExample.Lang.Key", @event.VersionText);
+            text += '\n' + Language.GetTextValue("Mods.TeaExample.Toml.Key");
+            @event.VersionText = text;
         }
     }
 }

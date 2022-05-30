@@ -3,9 +3,11 @@ using TeaFramework.API.DependencyInjection;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
+using TeaFramework.API.Features.Localization;
 using TeaFramework.API.Features.Logging;
 using TeaFramework.Features.CustomLoading;
 using TeaFramework.Features.Events;
+using TeaFramework.Features.Localization;
 using TeaFramework.Features.Logging;
 
 namespace TeaFramework.API
@@ -30,6 +32,10 @@ namespace TeaFramework.API
             apiServiceProvider.SetServiceSingleton<LoadStepsProvider>(
                 (out IList<ILoadStep> steps) => steps = GetLoadSteps()
             );
+            ILocalizationLoader localizationLoader = new DefaultLocalizationLoader();
+            apiServiceProvider.SetServiceSingleton(localizationLoader);
+            localizationLoader.Parsers.Add("lang", new LangFileParser());
+            localizationLoader.Parsers.Add("toml", new TomlFileParser());
         }
 
         public void Uninstall(IApiServiceProvider apiServiceProvider) {
@@ -37,6 +43,7 @@ namespace TeaFramework.API
             apiServiceProvider.SetServiceSingleton<IEventBus>(null);
             apiServiceProvider.SetServiceSingleton<ContentLoadersProvider>(null);
             apiServiceProvider.SetServiceSingleton<LoadStepsProvider>(null);
+            apiServiceProvider.SetServiceSingleton<ILocalizationLoader>(null);
         }
 
         /// <summary>

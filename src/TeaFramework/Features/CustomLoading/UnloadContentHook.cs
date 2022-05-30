@@ -32,6 +32,8 @@ namespace TeaFramework.Features.CustomLoading
             LoadStepCollection collection = new(loadSteps);
 
             foreach (ILoadStep step in collection.GetReversed()) step.Unload(teaMod);
+
+            teaMod.UninstallApis();
         };
     }
 }

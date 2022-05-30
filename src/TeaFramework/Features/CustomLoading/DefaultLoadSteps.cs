@@ -5,6 +5,7 @@ using System.Reflection;
 using ReLogic.Content;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
+using TeaFramework.API.Features.Localization;
 using TeaFramework.API.Features.Patching;
 using TeaFramework.Features.Utility;
 using TeaFramework.Utilities.Extensions;
@@ -32,10 +33,11 @@ namespace TeaFramework.Features.CustomLoading
         public const float ClearEquipTexturesWeight = 6f;
         public const float ClearContentWeight = 7f;
         public const float AutoloadWeight = 8f;
-        public const float UnsubscribeEventsWeight = 9f;
-        public const float LoadWeight = 10f;
-        public const float OnModLoadWeight = 11f;
-        public const float LoadingFalseWeight = 12f;
+        public const float AutoloadLocalizationWeight = 9f;
+        public const float UnsubscribeEventsWeight = 10f;
+        public const float LoadWeight = 11f;
+        public const float OnModLoadWeight = 12f;
+        public const float LoadingFalseWeight = 13f;
 
         /// <summary>
         ///     When loading: JITs the mod assembly. <br />
@@ -185,6 +187,21 @@ namespace TeaFramework.Features.CustomLoading
             }
         );
 
+        /// <summary>
+        ///     When loading: loads localization from localization loaders. <br />
+        ///     When unloading: N/A.
+        /// </summary>
+        public static readonly ILoadStep AutoloadLocalization = new LoadStep(
+            nameof(AutoloadLocalization),
+            AutoloadLocalizationWeight,
+            teaMod =>
+            {
+                ILocalizationLoader? localizationLoader = teaMod.GetService<ILocalizationLoader>();
+                localizationLoader?.ParseFilesFromMod(teaMod);
+            },
+            _ => { }
+        );
+
         public static readonly ILoadStep UnsubscribeEvents = new LoadStep(
             nameof(UnsubscribeEvents),
             UnsubscribeEventsWeight,
@@ -233,8 +250,9 @@ namespace TeaFramework.Features.CustomLoading
             teaMod =>
             {
                 Type sysLoader = typeof(SystemLoader);
-                MethodInfo modUnload = sysLoader.GetCachedMethod("OnModUnload");
-                modUnload.Invoke(null, new object?[] {teaMod.ModInstance});
+                // Account for updates.
+                MethodInfo? modUnload = sysLoader.GetCachedMethodNullable("OnModUnload");
+                modUnload?.Invoke(null, new object?[] {teaMod.ModInstance});
             }
         );
 
@@ -264,6 +282,7 @@ namespace TeaFramework.Features.CustomLoading
                 ClearEquipTextures,
                 ClearContent,
                 Autoload,
+                AutoloadLocalization,
                 UnsubscribeEvents,
                 Load,
                 OnModLoad,
