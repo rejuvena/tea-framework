@@ -32,8 +32,8 @@ namespace TeaFramework.Features.CustomLoading
         public const float PrepareAssetsWeight = 5f;
         public const float ClearEquipTexturesWeight = 6f;
         public const float ClearContentWeight = 7f;
-        public const float AutoloadWeight = 8f;
-        public const float AutoloadLocalizationWeight = 9f;
+        public const float AutoloadLocalizationWeight = 8f;
+        public const float AutoloadWeight = 9f;
         public const float UnsubscribeEventsWeight = 10f;
         public const float LoadWeight = 11f;
         public const float OnModLoadWeight = 12f;
@@ -170,6 +170,21 @@ namespace TeaFramework.Features.CustomLoading
         );
 
         /// <summary>
+        ///     When loading: loads localization from localization loaders. <br />
+        ///     When unloading: N/A.
+        /// </summary>
+        public static readonly ILoadStep AutoloadLocalization = new LoadStep(
+            nameof(AutoloadLocalization),
+            AutoloadLocalizationWeight,
+            teaMod =>
+            {
+                ILocalizationLoader? localizationLoader = teaMod.GetService<ILocalizationLoader>();
+                localizationLoader?.ParseFilesFromMod(teaMod);
+            },
+            _ => { }
+        );
+
+        /// <summary>
         ///     When loading: invokes <see cref="Mod.Autoload" />. <br />
         ///     When unloading: unloads all loadables in reverse.
         /// </summary>
@@ -185,21 +200,6 @@ namespace TeaFramework.Features.CustomLoading
 
                 foreach (ILoadable loadable in content.Reverse()) loadable.Unload();
             }
-        );
-
-        /// <summary>
-        ///     When loading: loads localization from localization loaders. <br />
-        ///     When unloading: N/A.
-        /// </summary>
-        public static readonly ILoadStep AutoloadLocalization = new LoadStep(
-            nameof(AutoloadLocalization),
-            AutoloadLocalizationWeight,
-            teaMod =>
-            {
-                ILocalizationLoader? localizationLoader = teaMod.GetService<ILocalizationLoader>();
-                localizationLoader?.ParseFilesFromMod(teaMod);
-            },
-            _ => { }
         );
 
         public static readonly ILoadStep UnsubscribeEvents = new LoadStep(
@@ -281,8 +281,8 @@ namespace TeaFramework.Features.CustomLoading
                 PrepareAssets,
                 ClearEquipTextures,
                 ClearContent,
-                Autoload,
                 AutoloadLocalization,
+                Autoload,
                 UnsubscribeEvents,
                 Load,
                 OnModLoad,

@@ -7,7 +7,7 @@
         <PlatformTarget>AnyCPU</PlatformTarget>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <Title>Tomat.Rejuvena.TeaFramework</Title>
+        <Title>Rejuvena.TeaFramework</Title>
         <Authors>Rejuvena Team</Authors>
         <Description>Progressive tModLoader library mod.</Description>
         <PackageProjectUrl>https://github.com/rejuvena/tea-framework</PackageProjectUrl>
@@ -15,6 +15,7 @@
         <RepositoryType>Git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>Rejuvena.TeaFramework</PackageId>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
