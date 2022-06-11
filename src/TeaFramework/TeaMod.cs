@@ -6,6 +6,7 @@ using TeaFramework.API.DependencyInjection;
 using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
+using TeaFramework.API.Features.ModCall;
 using TeaFramework.API.Features.Patching;
 using TeaFramework.Features.CustomLoading;
 using TeaFramework.Utilities.Extensions;
@@ -122,6 +123,10 @@ namespace TeaFramework
                     UninstallApis();
                 });
             });
+        }
+
+        public override object? Call(params object[] args) {
+            return this.GetService<IModCallManager>()?.Call(args) ?? null;
         }
 
         #endregion
