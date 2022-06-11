@@ -5,10 +5,12 @@ using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
 using TeaFramework.API.Features.Localization;
 using TeaFramework.API.Features.Logging;
+using TeaFramework.API.Features.ModCall;
 using TeaFramework.Features.CustomLoading;
 using TeaFramework.Features.Events;
 using TeaFramework.Features.Localization;
 using TeaFramework.Features.Logging;
+using TeaFramework.Features.ModCall;
 
 namespace TeaFramework.API
 {
@@ -36,6 +38,7 @@ namespace TeaFramework.API
             apiServiceProvider.SetServiceSingleton(localizationLoader);
             localizationLoader.Parsers.Add("lang", new LangFileParser());
             localizationLoader.Parsers.Add("toml", new TomlFileParser());
+            apiServiceProvider.SetServiceSingleton<IModCallManager>(new ModCallManager());
         }
 
         public void Uninstall(IApiServiceProvider apiServiceProvider) {
@@ -44,13 +47,14 @@ namespace TeaFramework.API
             apiServiceProvider.SetServiceSingleton<ContentLoadersProvider>(null);
             apiServiceProvider.SetServiceSingleton<LoadStepsProvider>(null);
             apiServiceProvider.SetServiceSingleton<ILocalizationLoader>(null);
+            apiServiceProvider.SetServiceSingleton<IModCallManager>(null);
         }
 
         /// <summary>
         ///     Returns a collection of default content loaders.
         /// </summary>
         public static IEnumerable<IContentLoader> GetContentLoaders() {
-            return new IContentLoader[] {new EventListenerLoader()};
+            return new IContentLoader[] {new EventListenerLoader(), new ModCallHandlerLoader()};
         }
 
         /// <summary>
