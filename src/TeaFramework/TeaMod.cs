@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TeaFramework.API;
 using TeaFramework.API.DependencyInjection;
@@ -7,6 +8,7 @@ using TeaFramework.API.Features.ContentLoading;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
 using TeaFramework.API.Features.ModCall;
+using TeaFramework.API.Features.Packets;
 using TeaFramework.API.Features.Patching;
 using TeaFramework.Features.CustomLoading;
 using TeaFramework.Utilities.Extensions;
@@ -123,6 +125,12 @@ namespace TeaFramework
                     UninstallApis();
                 });
             });
+        }
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI) {
+            base.HandlePacket(reader, whoAmI);
+
+            this.GetService<IPacketManager>()?.ReadPacket(reader, whoAmI);
         }
 
         public override object? Call(params object[] args) {
