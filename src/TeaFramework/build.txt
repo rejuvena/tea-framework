@@ -1,6 +1,6 @@
 displayName = Tea Framework
 author = Tomat
-version = 1.1.0
+version = 1.2.0
 dllReferences = Tomlet
 buildIgnore = *.csproj, *.sln, *.user, obj\*, bin\*, .vs\*, .git\*, .idea\*, TeaFramework.Tests\*, TeaExample\*
 hideCode = false
