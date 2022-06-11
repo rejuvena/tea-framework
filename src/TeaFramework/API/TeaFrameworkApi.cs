@@ -41,7 +41,7 @@ namespace TeaFramework.API
             localizationLoader.Parsers.Add("lang", new LangFileParser());
             localizationLoader.Parsers.Add("toml", new TomlFileParser());
             apiServiceProvider.SetServiceSingleton<IModCallManager>(new ModCallManager());
-            apiServiceProvider.SetServiceSingleton<IPacketManager>(new PacketManager());
+            apiServiceProvider.SetServiceSingleton<IPacketManager>(new PacketManager(apiServiceProvider.TeaMod));
         }
 
         public void Uninstall(IApiServiceProvider apiServiceProvider) {
