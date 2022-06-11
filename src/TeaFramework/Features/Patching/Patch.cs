@@ -24,7 +24,7 @@ namespace TeaFramework.Features.Patching
 
         public Mod Mod { get; protected set; } = null!;
 
-        public abstract MethodInfo ModifiedMethod { get; }
+        public abstract MethodBase ModifiedMethod { get; }
 
         public MethodInfo ModifyingMethod => PatchMethod.Method;
 

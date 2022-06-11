@@ -13,7 +13,7 @@ namespace TeaFramework.API.Features.Patching
         /// <summary>
         ///     The method being IL edited.
         /// </summary>
-        public readonly MethodInfo BaseMethod;
+        public readonly MethodBase BaseMethod;
 
         /// <summary>
         ///     The method performing the IL edit.
@@ -25,7 +25,7 @@ namespace TeaFramework.API.Features.Patching
         /// </summary>
         public readonly Delegate PatchDelegate;
 
-        public ILPatch(MethodInfo baseMethod, ILContext.Manipulator patchMethod) {
+        public ILPatch(MethodBase baseMethod, ILContext.Manipulator patchMethod) {
             BaseMethod = baseMethod;
             PatchMethod = patchMethod;
 

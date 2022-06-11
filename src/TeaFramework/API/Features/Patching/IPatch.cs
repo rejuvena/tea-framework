@@ -16,7 +16,7 @@ namespace TeaFramework.API.Features.Patching
         /// <summary>
         ///     The method being patched.
         /// </summary>
-        MethodInfo ModifiedMethod { get; }
+        MethodBase ModifiedMethod { get; }
 
         /// <summary>
         ///     The method being applied as a patch.

@@ -11,7 +11,7 @@ namespace TeaFramework.API.Features.Patching
         /// <summary>
         ///     The method being detoured.
         /// </summary>
-        public readonly MethodInfo BaseMethod;
+        public readonly MethodBase BaseMethod;
 
         /// <summary>
         ///     The method performing the detour.
@@ -23,7 +23,7 @@ namespace TeaFramework.API.Features.Patching
         /// </summary>
         public readonly Hook PatchHook;
 
-        public DetourPatch(MethodInfo baseMethod, MethodInfo patchMethod, IPatch patch) {
+        public DetourPatch(MethodBase baseMethod, MethodInfo patchMethod, IPatch patch) {
             BaseMethod = baseMethod;
             PatchMethod = patchMethod;
 
