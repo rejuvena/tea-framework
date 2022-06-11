@@ -15,14 +15,14 @@ namespace TeaFramework.API.Features.Packets
         ITeaMod TeaMod { get; }
 
         /// <summary>
-        ///     Type to packet handler map, where the type represents the type of a packet data object.
-        /// </summary>
-        Dictionary<Type, IPacketHandler> PacketHandlers { get; }
-
-        /// <summary>
         ///     Packet handler ID to packet handler map.
         /// </summary>
-        Dictionary<byte, IPacketHandler> PacketHandlersFromId { get; }
+        Dictionary<byte, IPacketHandler> PacketHandlers { get; }
+
+        /// <summary>
+        ///     Packet handler <see cref="Type"/> to packet handler ID.
+        /// </summary>
+        Dictionary<Type, byte> PacketHandlerTypeToId { get; }
 
         /// <summary>
         ///     Registers a packet handler.
@@ -31,17 +31,11 @@ namespace TeaFramework.API.Features.Packets
         void RegisterPacketHandler(IPacketHandler handler);
 
         /// <summary>
-        ///     Initiates the writing of a packet from the given packet data.
-        /// </summary>
-        /// <param name="packetData">The packet data to write.</param>
-        void WritePacketFromData(IPacketData packetData);
-
-        /// <summary>
         ///     Writes a packet to the binary writer with the given packet data.
         /// </summary>
         /// <param name="writer">The writer to write with.</param>
         /// <param name="packetData"></param>
-        void WritePacket(BinaryWriter writer, IPacketData packetData);
+        void WritePacket(BinaryWriter writer, byte packetId, IPacketData? packetData = null);
 
         /// <summary>
         ///     Reads a packet using the given reader.
