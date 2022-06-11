@@ -7,7 +7,7 @@ using Mono.Cecil.Cil;
 using Mono.Collections.Generic;
 using MonoMod.Cil;
 
-namespace TeaFramework.Features.Utility
+namespace TeaFramework.Utilities
 {
     /// <summary>
     ///     IL utilities, mostly for logging.

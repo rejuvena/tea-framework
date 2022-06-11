@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace TeaFramework.Features.Utility
+namespace TeaFramework.Utilities
 {
     partial class Cecil
     {

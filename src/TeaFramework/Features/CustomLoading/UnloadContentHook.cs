@@ -3,7 +3,7 @@ using System.Reflection;
 using TeaFramework.API;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.Features.Patching;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using TeaFramework.Utilities.Extensions;
 using Terraria.ModLoader;
 

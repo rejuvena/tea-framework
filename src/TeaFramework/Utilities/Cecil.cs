@@ -1,4 +1,4 @@
-﻿namespace TeaFramework.Features.Utility
+﻿namespace TeaFramework.Utilities
 {
     /// <summary>
     ///     Various <c>Mono.Cecil</c>-related utilities.

@@ -6,7 +6,7 @@ using TeaFramework.API;
 using TeaFramework.API.Exceptions;
 using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.Features.Patching;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using TeaFramework.Utilities.CWT.Data;
 using TeaFramework.Utilities.Extensions;
 using Terraria.ModLoader;

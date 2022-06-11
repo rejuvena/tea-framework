@@ -1,7 +1,7 @@
 ﻿using System;
 using MonoMod.Cil;
 
-namespace TeaFramework.API.Utility
+namespace TeaFramework.Utilities
 {
     public class ILMixin
     {

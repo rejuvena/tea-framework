@@ -31,7 +31,7 @@ namespace TeaFramework.Features.Localization
                 value = value.Replace("\\n", "\n");
 
                 if (!translations.TryGetValue(key, out ModTranslation? translation))
-                    translation = translations[key] = Utility.Localization.GetOrCreateTranslation(teaMod.ModInstance, key);
+                    translation = translations[key] = Utilities.Localization.GetOrCreateTranslation(teaMod.ModInstance, key);
 
                 translation.AddTranslation(culture, value);
             }

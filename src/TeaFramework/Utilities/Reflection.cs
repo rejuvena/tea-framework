@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TeaFramework.Features.Utility
+namespace TeaFramework.Utilities
 {
     /// <summary>
     ///     Utilities for handling reflection.

@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using TeaFramework.API;
 using TeaFramework.API.Features.Localization;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 

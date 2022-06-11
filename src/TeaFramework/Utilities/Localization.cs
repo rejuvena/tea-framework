@@ -2,7 +2,7 @@
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace TeaFramework.Features.Utility
+namespace TeaFramework.Utilities
 {
     public static class Localization
     {

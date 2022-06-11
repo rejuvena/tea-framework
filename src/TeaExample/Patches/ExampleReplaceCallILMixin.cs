@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using MonoMod.Cil;
-using TeaFramework.API.Utility;
 using TeaFramework.Features.Patching;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 

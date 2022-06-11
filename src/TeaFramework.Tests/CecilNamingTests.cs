@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using NUnit.Framework;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 
 namespace TeaFramework.Tests
 {

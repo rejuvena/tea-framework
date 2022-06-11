@@ -7,7 +7,7 @@ using TeaFramework.API.Features.CustomLoading;
 using TeaFramework.API.Features.Events;
 using TeaFramework.API.Features.Localization;
 using TeaFramework.API.Features.Patching;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using TeaFramework.Utilities.Extensions;
 using Terraria;
 using Terraria.ModLoader;

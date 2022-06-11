@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TeaFramework.API.Exceptions;
 
-namespace TeaFramework.Features.Utility
+namespace TeaFramework.Utilities
 {
     partial class Reflection
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace TeaFramework.Features.Utility
+namespace TeaFramework.Utilities
 {
     partial class Reflection
     {

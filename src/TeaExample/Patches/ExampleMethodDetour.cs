@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Xna.Framework;
 using TeaFramework.Features.Patching;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using Terraria;
 
 namespace TeaExampleMod.Patches

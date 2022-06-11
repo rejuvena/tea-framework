@@ -4,7 +4,7 @@ using MonoMod.Cil;
 using TeaExampleMod.Events;
 using TeaFramework.API.Features.Events;
 using TeaFramework.Features.Patching;
-using TeaFramework.Features.Utility;
+using TeaFramework.Utilities;
 using Terraria;
 
 namespace TeaExampleMod.Patches
