@@ -5,16 +5,19 @@ using Terraria.ModLoader;
 namespace TeaFramework.API.Features.Packets
 {
     /// <summary>
-    ///     Handles reading and writing packets.
+    ///     Handles reading and writing packets. Only functions when the specified <see cref="IPacketData"/> is passed into <see cref="IPacketHandler.Write(BinaryWriter, IPacketData?)"/>.
     /// </summary>
-    /// <typeparam name="TPacketData"></typeparam>
-    public interface IPacketHandler<in TPacketData> : IPacketHandler
+    /// <remarks>
+    ///     This interface implements <see cref="ILoadable" />.
+    /// </remarks>
+    public interface IPacketHandlerWithData<in TPacketData> : IPacketHandler
         where TPacketData : IPacketData
     {
-        Type IPacketHandler.HandledType => typeof(TPacketData);
+        void IPacketHandler.Write(BinaryWriter writer, IPacketData? packetData) {
+            if (packetData is null)
+                throw new ArgumentNullException(nameof(packetData), $"\"{nameof(packetData)}\" cannot be null in IPacketHandlerWithData.Write");
 
-        void IPacketHandler.WritePacket(BinaryWriter writer, IPacketData packetData) {
-            WritePacket(writer, (TPacketData) packetData);
+            Write(writer, (TPacketData) packetData);
         }
 
         /// <summary>
@@ -22,34 +25,41 @@ namespace TeaFramework.API.Features.Packets
         /// </summary>
         /// <param name="writer">The writer to write with.</param>
         /// <param name="packetData">The packet data to serialize.</param>
-        void WritePacket(BinaryWriter writer, TPacketData packetData);
+        void Write(BinaryWriter writer, TPacketData packetData);
     }
 
     /// <summary>
     ///     Handles reading and writing packets.
     /// </summary>
     /// <remarks>
-    ///     This interface extends <see cref="ILoadable" />.
+    ///     This interface implements <see cref="ILoadable" />.
     /// </remarks>
     public interface IPacketHandler : ILoadable
     {
         /// <summary>
-        ///     The packet data type to handle.
+        /// The <see cref="IPacketHandler"/> id, unique within the mod it belongs to.
         /// </summary>
-        Type HandledType { get; }
+        byte Id { get; set; }
 
         /// <summary>
-        ///     Writes a packet.
+        ///     Writes to a <see cref="BinaryWriter"/>.
         /// </summary>
-        /// <param name="writer">The writer to write with.</param>
+        /// <param name="writer">The writer to write to.</param>
         /// <param name="packetData">The packet data to serialize.</param>
-        void WritePacket(BinaryWriter writer, IPacketData packetData);
+        void Write(BinaryWriter writer, IPacketData? packetData = null);
 
         /// <summary>
         ///     Reads a packet.
         /// </summary>
-        /// <param name="reader">The reader to read with.</param>
+        /// <param name="reader">The reader to read from.</param>
         /// <param name="whoAmI">The ID of the player sending the packet.</param>
         void ReadPacket(BinaryReader reader, int whoAmI);
+
+        // Default impls for 100% less boilerplate.
+        void ILoadable.Load(Mod mod) {
+        }
+
+        void ILoadable.Unload() {
+        }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using TeaFramework.API;
 using TeaFramework.API.Features.Packets;
-using Terraria.ModLoader;
 
 namespace TeaFramework.Features.Packets
 {
@@ -17,27 +16,23 @@ namespace TeaFramework.Features.Packets
 
         public ITeaMod TeaMod { get; }
 
-        public Dictionary<Type, IPacketHandler> PacketHandlers { get; } = new();
+        public Dictionary<byte, IPacketHandler> PacketHandlers { get; } = new();
 
-        public Dictionary<byte, IPacketHandler> PacketHandlersFromId { get; } = new();
+        public Dictionary<Type, byte> PacketHandlerTypeToId { get; } = new();
 
-        public void RegisterPacketHandler(IPacketHandler handler) {
-            PacketHandlers[handler.HandledType] = handler;
-            PacketHandlersFromId[PacketCount++] = handler;
+        public void RegisterPacketHandler(IPacketHandler handler) {            
+            PacketHandlers[PacketCount++] = handler;
+            PacketHandlerTypeToId[handler.GetType()] = PacketCount;
         }
 
-        public void WritePacketFromData(IPacketData packetData) {
-            ModPacket packet = TeaMod.ModInstance.GetPacket();
-            WritePacket(packet, packetData);
-            packet.Send();
-        }
-
-        public void WritePacket(BinaryWriter writer, IPacketData packetData) {
-            PacketHandlers[packetData.GetType()].WritePacket(writer, packetData);
+        public void WritePacket(BinaryWriter writer, byte packetHandlerId, IPacketData? packetData = null) {
+            writer.Write(packetHandlerId);
+            PacketHandlers[packetHandlerId].Write(writer, packetData);
         }
 
         public void ReadPacket(BinaryReader reader, int whoAmI) {
-            PacketHandlersFromId[reader.ReadByte()].ReadPacket(reader, whoAmI);
+            byte id = reader.ReadByte();
+            PacketHandlers[id].ReadPacket(reader, whoAmI);
         }
     }
 }
