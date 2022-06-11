@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace TeaFramework.API.Features.Packets
 {
     /// <summary>
-    ///     Handles reading and writing packets.
+    ///     Handles reading and writing packets. Only functions when the specified <see cref="IPacketData"/> is passed into <see cref="IPacketHandler.Write(BinaryWriter, IPacketData?)"/>.
     /// </summary>
     /// <remarks>
     ///     This interface implements <see cref="ILoadable" />.
@@ -36,6 +36,9 @@ namespace TeaFramework.API.Features.Packets
     /// </remarks>
     public interface IPacketHandler : ILoadable
     {
+        /// <summary>
+        /// The <see cref="IPacketHandler"/> id, unique within the mod it belongs to.
+        /// </summary>
         byte Id { get; set; }
 
         /// <summary>
