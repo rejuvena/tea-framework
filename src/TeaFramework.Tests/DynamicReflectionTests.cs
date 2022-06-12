@@ -50,10 +50,10 @@ namespace TeaFramework.Tests
             public readonly string TestField1 = "Test Field One";
             public readonly int TestField2 = 2;
 
-            public string TestProperty1 { get; } = "Test Property One";
-            public int TestProperty2 { get; } = 2;
-            public static string TestProperty3 { get; } = "Test Property 3";
-            public static int TestProperty4 { get; } = 4;
+            public string TestProperty1 { get; set;  } = "Test Property One";
+            public int TestProperty2 { get; set; } = 2;
+            public static string TestProperty3 { get; set; } = "Test Property 3";
+            public static int TestProperty4 { get; set; } = 4;
         }
     }
 }
