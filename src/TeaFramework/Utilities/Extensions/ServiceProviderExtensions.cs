@@ -6,18 +6,19 @@ namespace TeaFramework.Utilities.Extensions
     public static class ServiceProviderExtensions
     {
         /// <summary>
-        ///     Directly installs an API from the generic type, assuming a parameterless constructor.
+        ///     Directly adds an API from the generic type, assuming a parameterless constructor.
         /// </summary>
-        public static void InstallApi<T>(this IApiServiceProvider provider)
-            where T : IApiService, new() {
-            provider.InstallApi(new T());
+        public static void AddApi<T>(this IApiServiceProvider provider)
+            where T : IApi, new() {
+            provider.AddApi(new T());
         }
 
         /// <summary>
         ///     Super-short shorthand for calling <see cref="ISingletonServiceProvider.GetServiceSingleton{T}" />.
         /// </summary>
-        public static T? GetService<T>(this ITeaMod teaMod) {
-            return teaMod.ServiceProvider.GetServiceSingleton<T>();
+        public static T? GetService<T>(this ITeaMod teaMod)
+            where T : IService {
+            return teaMod.ServiceProvider.GetService<T>();
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +10,8 @@ using TeaFramework.API.Features.Events;
 using TeaFramework.API.Features.ModCall;
 using TeaFramework.API.Features.Packets;
 using TeaFramework.API.Features.Patching;
+using TeaFramework.Features;
+using TeaFramework.Features.ContentLoading;
 using TeaFramework.Features.CustomLoading;
 using TeaFramework.Utilities.Extensions;
 using Terraria;
@@ -30,7 +32,7 @@ namespace TeaFramework
             ExecutePrivately(MonoModHooks.RequestNativeAccess);
             ServiceProvider = new ApiServiceProvider(this);
             // Our APIs aren't loaded by our hooks, normally.
-            ExecutePrivately(InstallApis);
+            ExecutePrivately(AddApis);
             ExecutePrivately(() =>
             {
                 IPatch patch = new LoadModContentEdit();
@@ -65,17 +67,27 @@ namespace TeaFramework
 
         public IApiServiceProvider ServiceProvider { get; }
 
-        public virtual void InstallApis() {
-            ServiceProvider.InstallApi<TeaFrameworkApi>();
-            ServiceProvider.SetServiceSingleton<TeaFrameworkApi.ContentLoadersProvider>(GetContentLoaders);
-            ServiceProvider.SetServiceSingleton<TeaFrameworkApi.LoadStepsProvider>(GetLoadSteps);
+        public virtual void AddApis() {
+            ServiceProvider.AddApi<TeaFrameworkApi>();
+            
+            ServiceProvider.SetService<IContentLoadersProvider>(new DelegateContentLoadersProvider(() =>
+            {
+                GetContentLoaders(out IList<IContentLoader>? loaders);
+                return loaders;
+            }));
+            
+            ServiceProvider.SetService<ILoadStepsProvider>(new DelegateLoadStepsProvider(() =>
+            {
+                GetLoadSteps(out IList<ILoadStep>? steps);
+                return steps;
+            }));
         }
 
-        public virtual void UninstallApis() {
-            ServiceProvider.UninstallApi<TeaFrameworkApi>();
+        public virtual void ClearApiServiceProvider() {
+            ServiceProvider.RemoveAll();
         }
 
-        protected virtual void GetContentLoaders(out IEnumerable<IContentLoader> loaders) {
+        protected virtual void GetContentLoaders(out IList<IContentLoader> loaders) {
             loaders = TeaFrameworkApi.GetContentLoaders();
         }
 
@@ -113,7 +125,8 @@ namespace TeaFramework
                 {
                     IEventBus? bus = this.GetService<IEventBus>();
 
-                    if (bus is not null) {
+                    if (bus is not null)
+                    {
                         Dictionary<Type, List<IEventListener>>.ValueCollection listenerValues = bus.Listeners.Values;
                         IEventListener[] listeners = listenerValues.SelectMany(listeners => listeners).ToArray();
 
@@ -122,7 +135,7 @@ namespace TeaFramework
 
                     foreach (IMonoModPatch patch in Patches) patch.Unapply();
 
-                    UninstallApis();
+                    ClearApiServiceProvider();
                 });
             });
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using MonoMod.Cil;
 using TeaFramework.API;
@@ -55,14 +56,16 @@ namespace TeaFramework.Features.CustomLoading
                     modData.HasDoneLoadingCycle = true;
 
                     if (mod is ITeaMod teaMod) {
-                        teaMod.InstallApis();
+                        teaMod.AddApis();
 
-                        IList<ILoadStep>? loadSteps = null;
-                        teaMod.GetService<TeaFrameworkApi.LoadStepsProvider>()?.Invoke(out loadSteps);
+                        ILoadStepsProvider? provider = teaMod.GetService<ILoadStepsProvider>();
+                        if (provider is null) return;
+                        
+                        IEnumerable<ILoadStep> loadSteps = provider.GetLoadSteps();
 
                         if (loadSteps is null) return;
 
-                        LoadStepCollection collection = new(loadSteps);
+                        LoadStepCollection collection = new(loadSteps.ToList());
 
                         foreach (ILoadStep step in collection) step.Load(teaMod);
                     }

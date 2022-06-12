@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TeaFramework.API;
 using TeaFramework.API.Features.CustomLoading;
@@ -24,16 +25,19 @@ namespace TeaFramework.Features.CustomLoading
                 return;
             }
 
-            IList<ILoadStep>? loadSteps = null;
-            teaMod.GetService<TeaFrameworkApi.LoadStepsProvider>()?.Invoke(out loadSteps);
+            ILoadStepsProvider? provider = teaMod.GetService<ILoadStepsProvider>();
+
+            if (provider is null) return;
+            
+            IEnumerable<ILoadStep>? loadSteps = provider.GetLoadSteps();
 
             if (loadSteps is null) return;
 
-            LoadStepCollection collection = new(loadSteps);
+            LoadStepCollection collection = new(loadSteps.ToList());
 
             foreach (ILoadStep step in collection.GetReversed()) step.Unload(teaMod);
 
-            teaMod.UninstallApis();
+            teaMod.ClearApiServiceProvider();
         };
     }
 }

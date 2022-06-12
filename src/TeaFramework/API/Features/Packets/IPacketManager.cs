@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using TeaFramework.API.DependencyInjection;
 
 namespace TeaFramework.API.Features.Packets
 {
     /// <summary>
     ///     Manages reading and writing packets.
     /// </summary>
-    public interface IPacketManager
+    public interface IPacketManager : IService
     {
-        /// <summary>
-        ///     The associated <see cref="ITeaMod" /> instance.
-        /// </summary>
-        ITeaMod TeaMod { get; }
-
         /// <summary>
         ///     Packet handler ID to packet handler map.
         /// </summary>

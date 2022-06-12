@@ -20,7 +20,7 @@ namespace TeaFramework.Utilities
         /// <param name="packetData"><see cref="IPacketData"/> to use when writing the packet/.</param>
         /// <exception cref="InvalidOperationException">Thrown if <paramref name="teaMod"/> does not have a registered <see cref="IPacketManager"/></exception>
         public static void WritePacket<TPacket>(BinaryWriter writer, ITeaMod teaMod, IPacketData? packetData = null) where TPacket : IPacketHandler {
-            IPacketManager? manager = teaMod.ServiceProvider.GetServiceSingleton<IPacketManager>();
+            IPacketManager? manager = teaMod.ServiceProvider.GetService<IPacketManager>();
             if (manager is null)
                 throw new InvalidOperationException($"{teaMod.ModInstance.Name} does not have a {nameof(IPacketManager)} registered.");
 

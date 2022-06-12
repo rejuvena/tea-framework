@@ -1,11 +1,12 @@
 ﻿using log4net;
+using TeaFramework.API.DependencyInjection;
 
 namespace TeaFramework.API.Features.Logging
 {
     /// <summary>
     ///     An extensive wrapper around an <see cref="ILog"/> instance.
     /// </summary>
-    public interface ILogWrapper
+    public interface ILogWrapper : IService
     {
         /// <summary>
         ///     The wrapped <see cref="ILog"/> instance/

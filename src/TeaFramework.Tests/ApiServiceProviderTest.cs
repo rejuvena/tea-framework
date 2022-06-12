@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using TeaFramework.API.DependencyInjection;
+using TeaFramework.Features;
 
 namespace TeaFramework.Tests
 {
@@ -14,14 +15,14 @@ namespace TeaFramework.Tests
             TestApiServiceOne one = new();
             TestApiServiceTwo two = new();
 
-            provider.InstallApi(one);
-            provider.InstallApi(two);
+            provider.AddApi(one);
+            provider.AddApi(two);
 
-            if (provider.GetApiService<TestApiServiceOne>() is null) throw new Exception("TestApiServiceOne not installed.");
-            if (provider.GetApiService<TestApiServiceTwo>() is null) throw new Exception("TestApiServiceTwo not installed.");
+            if (provider.GetApi<TestApiServiceOne>() is null) throw new Exception("TestApiServiceOne not installed.");
+            if (provider.GetApi<TestApiServiceTwo>() is null) throw new Exception("TestApiServiceTwo not installed.");
 
-            IQuizzical? quizzical = provider.GetServiceSingleton<IQuizzical>();
-            ITesticle? testicle = provider.GetServiceSingleton<ITesticle>();
+            IQuizzical? quizzical = provider.GetService<IQuizzical>();
+            ITesticle? testicle = provider.GetService<ITesticle>();
 
             if (quizzical is null) throw new Exception("IQuizzical singleton was not present.");
             if (testicle is null) throw new Exception("ITesticle singleton was not present.");
@@ -29,40 +30,35 @@ namespace TeaFramework.Tests
             Assert.AreEqual("Pass", quizzical.Quiz());
             Assert.AreEqual("Pass", testicle.Test());
 
-            provider.UninstallApi<TestApiServiceOne>();
-            provider.UninstallApi<TestApiServiceTwo>();
+            provider.RemoveAll();
 
-            quizzical = provider.GetServiceSingleton<IQuizzical>();
-            testicle = provider.GetServiceSingleton<ITesticle>();
+            quizzical = provider.GetService<IQuizzical>();
+            testicle = provider.GetService<ITesticle>();
 
             if (quizzical is not null) throw new Exception("IQuizzical singleton was present.");
             if (testicle is not null) throw new Exception("ITesticle singleton was present.");
-            if (provider.GetApiService<TestApiServiceOne>() is not null) throw new Exception("TestApiServiceOne not uninstalled.");
-            if (provider.GetApiService<TestApiServiceTwo>() is not null) throw new Exception("TestApiServiceTwo not uninstalled.");
+            if (provider.GetApi<TestApiServiceOne>() is not null) throw new Exception("TestApiServiceOne not uninstalled.");
+            if (provider.GetApi<TestApiServiceTwo>() is not null) throw new Exception("TestApiServiceTwo not uninstalled.");
         }
 
-        public interface IQuizzical
+        public interface IQuizzical : IService
         {
             string Quiz();
         }
 
-        public interface ITesticle
+        public interface ITesticle : IService
         {
             string Test();
         }
 
-        public class TestApiServiceOne : IApiService
+        public class TestApiServiceOne : IApi
         {
             public string Name => nameof(TestApiServiceOne);
 
-            public void Install(IApiServiceProvider apiServiceProvider) {
-                apiServiceProvider.SetServiceSingleton<IQuizzical>(new Quizzical());
+            public void AddTo(IApiServiceProvider apiServiceProvider) {
+                apiServiceProvider.SetService<IQuizzical>(new Quizzical());
             }
-
-            public void Uninstall(IApiServiceProvider apiServiceProvider) {
-                apiServiceProvider.SetServiceSingleton<IQuizzical>(null);
-            }
-
+            
             private class Quizzical : IQuizzical
             {
                 public string Quiz() {
@@ -71,16 +67,12 @@ namespace TeaFramework.Tests
             }
         }
 
-        public class TestApiServiceTwo : IApiService
+        public class TestApiServiceTwo : IApi
         {
             public string Name => nameof(TestApiServiceTwo);
 
-            public void Install(IApiServiceProvider apiServiceProvider) {
-                apiServiceProvider.SetServiceSingleton<ITesticle>(new Testicle());
-            }
-
-            public void Uninstall(IApiServiceProvider apiServiceProvider) {
-                apiServiceProvider.SetServiceSingleton<ITesticle>(null);
+            public void AddTo(IApiServiceProvider apiServiceProvider) {
+                apiServiceProvider.SetService<ITesticle>(new Testicle());
             }
 
             private class Testicle : ITesticle

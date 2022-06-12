@@ -7,6 +7,7 @@ using TeaFramework.API.Features.Localization;
 using TeaFramework.API.Features.Logging;
 using TeaFramework.API.Features.ModCall;
 using TeaFramework.API.Features.Packets;
+using TeaFramework.Features.ContentLoading;
 using TeaFramework.Features.CustomLoading;
 using TeaFramework.Features.Events;
 using TeaFramework.Features.Localization;
@@ -19,52 +20,30 @@ namespace TeaFramework.API
     /// <summary>
     ///     The Tea Framework API service.
     /// </summary>
-    public class TeaFrameworkApi : IApiService
+    public class TeaFrameworkApi : IApi
     {
-        public delegate void ContentLoadersProvider(out IEnumerable<IContentLoader> loaders);
-
-        public delegate void LoadStepsProvider(out IList<ILoadStep> steps);
-
         public string Name => nameof(TeaFrameworkApi);
 
-        public void Install(IApiServiceProvider apiServiceProvider) {
-            apiServiceProvider.SetServiceSingleton<ILogWrapper>(new LogWrapper(apiServiceProvider.TeaMod.ModInstance));
-            apiServiceProvider.SetServiceSingleton<IEventBus>(new EventBus());
-            apiServiceProvider.SetServiceSingleton<ContentLoadersProvider>(
-                (out IEnumerable<IContentLoader> loaders) => loaders = GetContentLoaders()
-            );
-            apiServiceProvider.SetServiceSingleton<LoadStepsProvider>(
-                (out IList<ILoadStep> steps) => steps = GetLoadSteps()
-            );
+        public void AddTo(IApiServiceProvider apiServiceProvider) {
+            apiServiceProvider.SetService<ILogWrapper>(new LogWrapper(apiServiceProvider.TeaMod.ModInstance));
+            apiServiceProvider.SetService<IEventBus>(new EventBus());
+
+            apiServiceProvider.SetService<IContentLoadersProvider>(new ContentLoadersProvider());
+            apiServiceProvider.SetService<ILoadStepsProvider>(new LoadStepsProvider());
+
             ILocalizationLoader localizationLoader = new DefaultLocalizationLoader();
-            apiServiceProvider.SetServiceSingleton(localizationLoader);
+            apiServiceProvider.SetService(localizationLoader);
             localizationLoader.Parsers.Add("lang", new LangFileParser());
             localizationLoader.Parsers.Add("toml", new TomlFileParser());
-            apiServiceProvider.SetServiceSingleton<IModCallManager>(new ModCallManager());
-            apiServiceProvider.SetServiceSingleton<IPacketManager>(new PacketManager(apiServiceProvider.TeaMod));
+            
+            apiServiceProvider.SetService<IModCallManager>(new ModCallManager());
+            apiServiceProvider.SetService<IPacketManager>(new PacketManager(apiServiceProvider.TeaMod));
         }
 
-        public void Uninstall(IApiServiceProvider apiServiceProvider) {
-            apiServiceProvider.SetServiceSingleton<ILogWrapper>(null);
-            apiServiceProvider.SetServiceSingleton<IEventBus>(null);
-            apiServiceProvider.SetServiceSingleton<ContentLoadersProvider>(null);
-            apiServiceProvider.SetServiceSingleton<LoadStepsProvider>(null);
-            apiServiceProvider.SetServiceSingleton<ILocalizationLoader>(null);
-            apiServiceProvider.SetServiceSingleton<IModCallManager>(null);
-            apiServiceProvider.SetServiceSingleton<IPacketManager>(null);
+        public static IList<IContentLoader> GetContentLoaders() {
+            return new IContentLoader[] { new EventListenerLoader(), new ModCallHandlerLoader(), new PacketHandlerLoader() };
         }
 
-        /// <summary>
-        ///     Returns a collection of default content loaders.
-        /// </summary>
-        public static IEnumerable<IContentLoader> GetContentLoaders() {
-            return new IContentLoader[] {new EventListenerLoader(), new ModCallHandlerLoader(), new PacketHandlerLoader()};
-        }
-
-        /// <summary>
-        ///     Returns a collection of default load steps.
-        /// </summary>
-        /// <returns></returns>
         public static IList<ILoadStep> GetLoadSteps() {
             return DefaultLoadSteps.GetDefaultLoadSteps();
         }
