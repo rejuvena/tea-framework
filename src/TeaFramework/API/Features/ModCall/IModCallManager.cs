@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using TeaFramework.API.DependencyInjection;
 using Terraria.ModLoader;
 
 namespace TeaFramework.API.Features.ModCall
@@ -8,7 +9,7 @@ namespace TeaFramework.API.Features.ModCall
     /// <summary>
     ///     Describes an object capable of handling <see cref="Mod.Call" /> invocations.
     /// </summary>
-    public interface IModCallManager
+    public interface IModCallManager : IService
     {
         /// <summary>
         ///     Describes what went wrong when parsing args.

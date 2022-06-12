@@ -8,13 +8,15 @@ namespace TeaFramework.Features.Packets
 {
     public class PacketManager : IPacketManager
     {
+        public string Name => "TeaFramework:PacketManager";
+        
+        public ITeaMod TeaMod { get; set; }
+
         protected byte PacketCount;
 
         public PacketManager(ITeaMod teaMod) {
             TeaMod = teaMod;
         }
-
-        public ITeaMod TeaMod { get; }
 
         public Dictionary<byte, IPacketHandler> PacketHandlers { get; } = new();
 

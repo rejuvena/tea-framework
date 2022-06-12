@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using TeaFramework.API.DependencyInjection;
 
 namespace TeaFramework.API.Features.Localization
 {
-    public interface ILocalizationLoader
+    public interface ILocalizationLoader : IService
     {
         Dictionary<string, ILocalizationFileParser> Parsers { get; }
 

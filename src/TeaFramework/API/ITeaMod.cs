@@ -19,13 +19,13 @@ namespace TeaFramework.API
         IApiServiceProvider ServiceProvider { get; }
 
         /// <summary>
-        ///     Installs all APIs.
+        ///     Adds all APIs.
         /// </summary>
-        void InstallApis();
+        void AddApis();
 
         /// <summary>
-        ///     Uninstalls all APIs.
+        ///     Removes all APIs and services.
         /// </summary>
-        void UninstallApis();
+        void ClearApiServiceProvider();
     }
 }

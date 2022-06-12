@@ -39,8 +39,12 @@ namespace TeaFramework.Features.ContentLoading
             }
 
             // Retrieve the collection of content loaders as a service.
-            IEnumerable<IContentLoader>? contentLoaders = null;
-            teaMod.GetService<TeaFrameworkApi.ContentLoadersProvider>()?.Invoke(out contentLoaders);
+            IContentLoadersProvider? provider = teaMod.GetService<IContentLoadersProvider>();
+            if (provider is null) return;
+
+            IEnumerable<IContentLoader> contentLoaders = provider.GetContentLoaders();
+
+            if (contentLoaders is null) return;
 
             // If this mod provides no content loaders, load content as normal.
             if (contentLoaders is null) {

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using TeaFramework.API.DependencyInjection;
 
 namespace TeaFramework.API.Features.Events
 {
     /// <summary>
     ///     Describes an object capable of dispatching events to listeners.
     /// </summary>
-    public interface IEventBus
+    public interface IEventBus : IService
     {
         /// <summary>
         ///     The dictionary of event types pointing to all subscribed listeners.
